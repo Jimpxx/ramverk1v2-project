@@ -87,7 +87,32 @@ class UserLoginForm extends FormModel
         return false;
         }
 
+
+        
         $this->form->addOutput("User " . $user->acronym . " logged in.");
+        
+        // var_dump($user);
+        
+        // $loggedInUser = $user->find("acronym", $user->acronym);
+        // var_dump($loggedInUser);
+        // $loggedInUser = $user->getUser($user->acronym);
+        // $loggedInUser = $user->findWhere("acronym = ?", $user->acronym);
+        // $loggedInUser = $user->findAll();
+        
+        $currentUser = [
+            "id" => $user->id,
+            "acronym" => $user->acronym,
+            "password" => $user->password
+        ];
+        
+        // var_dump($currentUser);
+
+
+        // $currentUser = (array) $user;
+
+        // $this->di->get("session")->delete("user");
+        $this->di->get("session")->set("user", $currentUser);
+        // $this->di->get("session")->set("user", $loggedInUser);
         return true;
     }
 
@@ -98,7 +123,7 @@ class UserLoginForm extends FormModel
      */
     public function callbackSuccess()
     {
-        // $this->di->get("response")->redirect("/")->send();
-        $this->di->get("response")->redirectSelf()->send();
+        $this->di->get("response")->redirect("index");
+        // $this->di->get("response")->redirectSelf()->send();
     }
 }

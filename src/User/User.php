@@ -53,4 +53,16 @@ class User extends ActiveRecordModel
         $this->find("acronym", $acronym);
         return password_verify($password, $this->password);
     }
+
+    // /**
+    //  * Get user
+    //  *
+    //  * @param string $acronym  acronym to check.
+    //  *
+    //  * @return object An object of the user is returned.
+    //  */
+    // public function getUser($acronym)
+    // {
+    //     return $this->find("acronym", $acronym);
+    // }
 }

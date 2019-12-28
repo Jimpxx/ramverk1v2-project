@@ -19,5 +19,15 @@ return [
             "url" => "om",
             "title" => "Om denna webbplats.",
         ],
+        [
+            "text" => "Login",
+            "url" => "user/login",
+            "title" => "User Login.",
+        ],
+        [
+                "text" => "Logout",
+                "url" => "user/logout",
+                "title" => "User Logout.",
+        ],
     ],
 ];

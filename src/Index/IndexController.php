@@ -1,11 +1,11 @@
 <?php
 
-namespace Jiad\User;
+namespace Jiad\Index;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Jiad\User\HTMLForm\UserLoginForm;
-use Jiad\User\HTMLForm\CreateUserForm;
+// use VendorName\User\HTMLForm\UserLoginForm;
+// use VendorName\User\HTMLForm\CreateUserForm;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -14,7 +14,7 @@ use Jiad\User\HTMLForm\CreateUserForm;
 /**
  * A sample controller to show how a controller class can be implemented.
  */
-class UserController implements ContainerInjectableInterface
+class IndexController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -54,8 +54,10 @@ class UserController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
 
-        $page->add("anax/v2/article/default", [
-            "content" => "An index page",
+        $user = $this->di->get("session")->get("user");
+
+        $page->add("index/home", [
+            "user" => $user,
         ]);
 
         return $page->render([
@@ -64,7 +66,6 @@ class UserController implements ContainerInjectableInterface
     }
 
 
-
     /**
      * Description.
      *
@@ -74,61 +75,18 @@ class UserController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function loginAction() : object
+    public function omActionGet() : object
     {
         $page = $this->di->get("page");
-        $form = new UserLoginForm($this->di);
-        $form->check();
 
-        $page->add("anax/v2/article/default", [
-            "content" => $form->getHTML(),
+        $user = $this->di->get("session")->get("user");
+
+        $page->add("index/om", [
+            "user" => $user,
         ]);
 
         return $page->render([
-            "title" => "A login page",
+            "title" => "A about page",
         ]);
-    }
-
-
-
-    /**
-     * Description.
-     *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
-     *
-     * @return object as a response object
-     */
-    public function createAction() : object
-    {
-        $page = $this->di->get("page");
-        $form = new CreateUserForm($this->di);
-        $form->check();
-
-        $page->add("anax/v2/article/default", [
-            "content" => $form->getHTML(),
-        ]);
-
-        return $page->render([
-            "title" => "A create user page",
-        ]);
-    }
-
-
-    /**
-     * Description.
-     *
-     * @param datatype $variable Description
-     *
-     * @throws Exception
-     *
-     * @return object as a response object
-     */
-    public function logoutAction() : object
-    {
-        $this->di->get("session")->delete("user");
-        $this->di->get("session")->delete("test");
-        $this->di->get("response")->redirect("index");
     }
 }

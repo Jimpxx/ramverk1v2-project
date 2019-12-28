@@ -24,8 +24,10 @@ return [
     "emulate_prepares" => false,
 
     // True to be very verbose during development
+    // "verbose"         => true,
     "verbose"         => null,
 
     // True to be verbose on connection failed
+    // "debug_connect"   => true,
     "debug_connect"   => false,
 ];
