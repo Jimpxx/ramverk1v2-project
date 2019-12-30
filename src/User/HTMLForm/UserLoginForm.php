@@ -58,7 +58,7 @@ class UserLoginForm extends FormModel
     public function callbackSubmit()
     {
         // Get values from the submitted form
-        $acronym       = $this->form->value("user");
+        $username       = $this->form->value("user");
         $password      = $this->form->value("password");
 
         // Try to login
@@ -79,7 +79,7 @@ class UserLoginForm extends FormModel
 
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
-        $res = $user->verifyPassword($acronym, $password);
+        $res = $user->verifyPassword($username, $password);
 
         if (!$res) {
         $this->form->rememberValues();
@@ -89,7 +89,7 @@ class UserLoginForm extends FormModel
 
 
         
-        $this->form->addOutput("User " . $user->acronym . " logged in.");
+        $this->form->addOutput("User " . $user->username . " logged in.");
         
         // var_dump($user);
         
@@ -101,7 +101,8 @@ class UserLoginForm extends FormModel
         
         $currentUser = [
             "id" => $user->id,
-            "acronym" => $user->acronym,
+            "username" => $user->username,
+            "email" => $user->email,
             "password" => $user->password
         ];
         
