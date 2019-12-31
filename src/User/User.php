@@ -21,6 +21,7 @@ class User extends ActiveRecordModel
      */
     public $id;
     public $username;
+    public $email;
     public $password;
     public $created;
     public $updated;
@@ -54,15 +55,15 @@ class User extends ActiveRecordModel
         return password_verify($password, $this->password);
     }
 
-    // /**
-    //  * Get user
-    //  *
-    //  * @param string $acronym  acronym to check.
-    //  *
-    //  * @return object An object of the user is returned.
-    //  */
-    // public function getUser($acronym)
-    // {
-    //     return $this->find("acronym", $acronym);
-    // }
+    /**
+     * Get user
+     *
+     * @param string $acronym  acronym to check.
+     *
+     * @return object An object of the user is returned.
+     */
+    public function authUser($sessionId, $id)
+    {
+        return $sessionId == $id;
+    }
 }

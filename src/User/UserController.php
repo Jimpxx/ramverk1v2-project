@@ -6,6 +6,7 @@ use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use Jiad\User\HTMLForm\UserLoginForm;
 use Jiad\User\HTMLForm\CreateUserForm;
+use Jiad\User\HTMLForm\UpdateUserForm;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -115,6 +116,48 @@ class UserController implements ContainerInjectableInterface
         ]);
     }
 
+    
+    /**
+     * Handler with form to update an item.
+     *
+     * @param int $id the id to update.
+     *
+     * @return object as a response object
+     */
+    public function updateAction(int $id) : object
+    {
+        // $user = new User();
+        // $user->setDb($this->di->get("dbqb"));
+        // $user->find("id", $id);
+
+        // $status = "Not logged in";
+
+        $sessionUser = $this->di->get("session")->get("user");
+
+        if (!$sessionUser["id"] == $id) {
+            // $status = "Logged in";
+            $this->di->get("response")->redirect("user/login");
+        }
+
+        // var_dump($status);
+        
+        $page = $this->di->get("page");
+        $form = new UpdateUserForm($this->di, $id);
+        $form->check();
+
+        // $page->add("book/crud/update", [
+        //     "form" => $form->getHTML(),
+        // ]);
+
+        $page->add("anax/v2/article/default", [
+            "content" => $form->getHTML(),
+        ]);
+
+        return $page->render([
+            "title" => "Update User",
+        ]);
+    }
+
 
     /**
      * Description.
@@ -128,7 +171,7 @@ class UserController implements ContainerInjectableInterface
     public function logoutAction() : object
     {
         $this->di->get("session")->delete("user");
-        $this->di->get("session")->delete("test");
+        // $this->di->get("session")->delete("test");
         $this->di->get("response")->redirect("index");
     }
 }
