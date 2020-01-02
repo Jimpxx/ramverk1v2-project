@@ -88,6 +88,7 @@ class CreateUserForm extends FormModel
         $user->username = $username;
         $user->email = $email;
         $user->setPassword($password);
+        $user->created = date("Y-m-d");
         $user->save();
 
         $this->form->addOutput("User was created.");

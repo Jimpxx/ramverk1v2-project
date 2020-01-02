@@ -129,6 +129,7 @@ class UpdateUserForm extends FormModel
         if ($newPassword !== "") {
             $user->setPassword($newPassword);
         }
+        $user->updated = date("Y-m-d");
         $user->save();
 
         $currentUser = [

@@ -181,7 +181,6 @@ class UserController implements ContainerInjectableInterface
 
         if ($sessionUser["id"] == $id) {
             // $status = "Logged in";
-            echo "ID is correct";
             $page->add("user/loggedInEditUser", [
                 "id" => $id,
             ]);

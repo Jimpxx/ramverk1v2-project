@@ -1,13 +1,25 @@
+PRAGMA foreign_keys = ON;
+
+
 --
--- Creating a User table.
+-- Dropping tables
 --
 
-PRAGMA foreign_keys = ON;
+DROP TABLE IF EXISTS TagsPost;
+DROP TABLE IF EXISTS Comment;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Post;
+DROP TABLE IF EXISTS Tags;
+
+
+--
+-- Creating tables.
+--
+
 
 --
 -- Table User
 --
-DROP TABLE IF EXISTS User;
 CREATE TABLE User (
     "id" INTEGER PRIMARY KEY,
     "username" TEXT UNIQUE,
@@ -24,7 +36,6 @@ CREATE TABLE User (
 --
 -- Table Post
 --
-DROP TABLE IF EXISTS Post;
 CREATE TABLE Post (
     "id" INTEGER PRIMARY KEY,
     "user_id" INTEGER,
@@ -74,7 +85,6 @@ CREATE TABLE Post (
 --
 -- Table Comment
 --
-DROP TABLE IF EXISTS Comment;
 CREATE TABLE Comment (
     "id" INTEGER PRIMARY KEY,
     "user_id" INTEGER,
@@ -94,17 +104,15 @@ CREATE TABLE Comment (
 --
 -- Table Tag
 --
-DROP TABLE IF EXISTS Tags;
 CREATE TABLE Tags (
     "id" INTEGER PRIMARY KEY,
-    "tag" TEXT UNIQUE,
+    "tag" TEXT UNIQUE
 );
 
 
 --
--- Table Tag
+-- Table TagsPost
 --
-DROP TABLE IF EXISTS TagsPost;
 CREATE TABLE TagsPost (
     "tag_id" INTEGER,
     "post_id" INTEGER,
