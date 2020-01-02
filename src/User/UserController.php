@@ -135,7 +135,6 @@ class UserController implements ContainerInjectableInterface
         $sessionUser = $this->di->get("session")->get("user");
 
         if (!$sessionUser["id"] == $id) {
-            // $status = "Logged in";
             $this->di->get("response")->redirect("user/login");
         }
 
@@ -155,6 +154,55 @@ class UserController implements ContainerInjectableInterface
 
         return $page->render([
             "title" => "Update User",
+        ]);
+    }
+
+    
+    /**
+     * Handler with form to update an item.
+     *
+     * @param int $id the id to update.
+     *
+     * @return object as a response object
+     */
+    public function profileAction(int $id) : object
+    {
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+        $user->find("id", $id);
+
+        $page = $this->di->get("page");
+
+        // $status = "Not logged in";
+
+        $sessionUser = $this->di->get("session")->get("user");
+
+        $page->add("user/profileTitle");
+
+        if ($sessionUser["id"] == $id) {
+            // $status = "Logged in";
+            echo "ID is correct";
+            $page->add("user/loggedInEditUser", [
+                "id" => $id,
+            ]);
+        }
+
+        // var_dump($status);
+        
+        
+        $form = new UpdateUserForm($this->di, $id);
+        $form->check();
+
+        // $page->add("book/crud/update", [
+        //     "form" => $form->getHTML(),
+        // ]);
+
+        $page->add("user/profile", [
+            "user" => $user,
+        ]);
+
+        return $page->render([
+            "title" => "Profile",
         ]);
     }
 
