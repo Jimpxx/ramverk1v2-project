@@ -186,11 +186,19 @@ class UserController implements ContainerInjectableInterface
             ]);
         }
 
-        // var_dump($status);
+
+        // Gravatar Image
+        $email = $user->email;
+        $size = 40;
+        $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "&s=" . $size;
+        // $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
         
+
+
+
         
-        $form = new UpdateUserForm($this->di, $id);
-        $form->check();
+        // $form = new UpdateUserForm($this->di, $id);
+        // $form->check();
 
         // $page->add("book/crud/update", [
         //     "form" => $form->getHTML(),
@@ -198,6 +206,7 @@ class UserController implements ContainerInjectableInterface
 
         $page->add("user/profile", [
             "user" => $user,
+            "img" => $grav_url
         ]);
 
         return $page->render([
