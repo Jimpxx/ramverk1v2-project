@@ -23,6 +23,11 @@ $navbar = [
             "url" => "om",
             "title" => "Om denna webbplats.",
         ],
+        [
+            "text" => "Posts",
+            "url" => "post",
+            "title" => "Posts.",
+        ],
         // [
         //     "text" => "Login",
         //     "url" => "user/login",
