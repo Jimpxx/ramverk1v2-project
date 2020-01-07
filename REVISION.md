@@ -1,5 +1,9 @@
 # Revision History
 
+## v1.0.2 (2020-01-07)
+
+-   Post functionality is added. Next is comments.
+
 ## v1.0.2 (2020-01-03)
 
 -   User, login, logout, profile and Gravatar is done. Next is adding post-functionality.
