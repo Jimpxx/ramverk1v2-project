@@ -1,5 +1,9 @@
 # Revision History
 
+## v1.0.4 (2020-01-09)
+
+-   Users, posts and comments are working. Next is tags.
+
 ## v1.0.3 (2020-01-07)
 
 -   Post functionality is added. Next is comments.
