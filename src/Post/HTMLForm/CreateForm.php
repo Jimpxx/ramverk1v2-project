@@ -24,6 +24,7 @@ class CreateForm extends FormModel
             [
                 "id" => __CLASS__,
                 "legend" => "Details of the item",
+                "escape-values" => false
             ],
             [
                 "title" => [
@@ -61,8 +62,7 @@ class CreateForm extends FormModel
         $post->user_id  = $this->di->get("session")->get("user")["id"];
         $post->title  = $this->form->value("title");
         $post->text = $this->form->value("text");
-        // $post->text = $textFilter->parse($this->form->value("text"), ["markdown"]);
-        $post->created = date("Y-m-d");
+        $post->pCreated = date("Y-m-d H:i");
         $post->save();
         return true;
     }

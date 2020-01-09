@@ -7,6 +7,8 @@ use Anax\Commons\ContainerInjectableTrait;
 use Jiad\User\HTMLForm\UserLoginForm;
 use Jiad\User\HTMLForm\CreateUserForm;
 use Jiad\User\HTMLForm\UpdateUserForm;
+use Jiad\Post\Post;
+use Jiad\Comment\Comment;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -169,7 +171,7 @@ class UserController implements ContainerInjectableInterface
     {
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
-        $user->find("id", $id);
+        $user->find("userId", $id);
 
         $page = $this->di->get("page");
 
@@ -194,19 +196,41 @@ class UserController implements ContainerInjectableInterface
         // $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
         
 
+        $post = new Post();
+        $post->setDb($this->di->get("dbqb"));
 
+        $posts = $post->findAllWhereJoin(
+            "Post.user_id = ?",
+            $id,
+            "User",
+            "User.userId = Post.user_id"
+        );
 
-        
-        // $form = new UpdateUserForm($this->di, $id);
-        // $form->check();
+        $comment = new Comment();
+        $comment->setDb($this->di->get("dbqb"));
 
-        // $page->add("book/crud/update", [
-        //     "form" => $form->getHTML(),
-        // ]);
+        // $comments = $comment->findAllWhereJoin(
+        //     "Comment.user_id = ?",
+        //     $id,
+        //     "User",
+        //     "User.userId = Comment.user_id"
+        // );
+
+        $commentedPosts = $comment->findAllWhereJoin(
+            "Comment.user_id = ?",
+            $id,
+            "Post",
+            "Post.postId = Comment.post_id"
+        );
+
+        // var_dump($commentedPosts);
+        $commentedPosts = array_unique($commentedPosts, SORT_REGULAR);
 
         $page->add("user/profile", [
             "user" => $user,
-            "img" => $grav_url
+            "img" => $grav_url,
+            "posts" => $posts,
+            "commentedPosts" => $commentedPosts
         ]);
 
         return $page->render([

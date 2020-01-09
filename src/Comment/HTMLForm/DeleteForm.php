@@ -1,10 +1,10 @@
 <?php
 
-namespace Jiad\Post\HTMLForm;
+namespace Jiad\Comment\HTMLForm;
 
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
-use Jiad\Post\Post;
+use Jiad\Comment\Comment;
 
 /**
  * Form to delete an item.
@@ -49,15 +49,15 @@ class DeleteForm extends FormModel
      */
     protected function getAllItems() : array
     {
-        $post = new Post();
-        $post->setDb($this->di->get("dbqb"));
+        $comment = new Comment();
+        $comment->setDb($this->di->get("dbqb"));
 
-        $posts = ["-1" => "Select an item..."];
-        foreach ($post->findAll() as $obj) {
-            $posts[$obj->postId] = "{$obj->title} ({$obj->postId})";
+        $comments = ["-1" => "Select an item..."];
+        foreach ($comment->findAll() as $obj) {
+            $comments[$obj->commentId] = "{$obj->text} ({$obj->commentId})";
         }
 
-        return $posts;
+        return $comments;
     }
 
 
@@ -70,10 +70,10 @@ class DeleteForm extends FormModel
      */
     public function callbackSubmit() : bool
     {
-        $post = new Post();
-        $post->setDb($this->di->get("dbqb"));
-        $post->find("postId", $this->form->value("select"));
-        $post->delete();
+        $comment = new Comment();
+        $comment->setDb($this->di->get("dbqb"));
+        $comment->find("commentId", $this->form->value("select"));
+        $comment->delete();
         return true;
     }
 

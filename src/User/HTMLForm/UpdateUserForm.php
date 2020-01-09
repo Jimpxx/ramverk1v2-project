@@ -31,7 +31,7 @@ class UpdateUserForm extends FormModel
                     "type" => "text",
                     "validation" => ["not_empty"],
                     "readonly" => true,
-                    "value" => $user->id,
+                    "value" => $user->userId,
                 ],
 
                 "username" => [
@@ -88,7 +88,7 @@ class UpdateUserForm extends FormModel
     {
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
-        $user->find("id", $id);
+        $user->find("userId", $id);
         return $user;
     }
 
@@ -117,7 +117,7 @@ class UpdateUserForm extends FormModel
         
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
-        $user->find("id", $this->form->value("id"));
+        $user->find("userId", $this->form->value("id"));
 
         if (!$user->verifyPassword($username, $oldPassword)) {
             $this->form->rememberValues();
@@ -129,11 +129,11 @@ class UpdateUserForm extends FormModel
         if ($newPassword !== "") {
             $user->setPassword($newPassword);
         }
-        $user->updated = date("Y-m-d");
+        $user->uUpdated = date("Y-m-d");
         $user->save();
 
         $currentUser = [
-            "id" => $user->id,
+            "id" => $user->userId,
             "username" => $user->username,
             "email" => $user->email,
             "password" => $user->password,

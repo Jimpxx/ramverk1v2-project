@@ -1,10 +1,10 @@
 <?php
 
-namespace Jiad\Post\HTMLForm;
+namespace Jiad\Comment\HTMLForm;
 
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
-use Jiad\Post\Post;
+use Jiad\Comment\Comment;
 
 /**
  * Form to update an item.
@@ -20,7 +20,7 @@ class UpdateForm extends FormModel
     public function __construct(ContainerInterface $di, $id)
     {
         parent::__construct($di);
-        $post = $this->getItemDetails($id);
+        $comment = $this->getItemDetails($id);
         $this->form->create(
             [
                 "id" => __CLASS__,
@@ -32,19 +32,13 @@ class UpdateForm extends FormModel
                     "type" => "text",
                     "validation" => ["not_empty"],
                     "readonly" => true,
-                    "value" => $post->postId,
-                ],
-
-                "title" => [
-                    "type" => "text",
-                    "validation" => ["not_empty"],
-                    "value" => $post->title,
+                    "value" => $comment->commentId,
                 ],
 
                 "text" => [
                     "type" => "textarea",
                     "validation" => ["not_empty"],
-                    "value" => $post->text,
+                    "value" => $comment->text,
                 ],
 
                 "submit" => [
@@ -67,14 +61,14 @@ class UpdateForm extends FormModel
      *
      * @param integer $id get details on item with id.
      * 
-     * @return Post
+     * @return Comment
      */
     public function getItemDetails($id) : object
     {
-        $post = new Post();
-        $post->setDb($this->di->get("dbqb"));
-        $post->find("postId", $id);
-        return $post;
+        $comment = new Comment();
+        $comment->setDb($this->di->get("dbqb"));
+        $comment->find("commentId", $id);
+        return $comment;
     }
 
 
@@ -87,13 +81,12 @@ class UpdateForm extends FormModel
      */
     public function callbackSubmit() : bool
     {
-        $post = new Post();
-        $post->setDb($this->di->get("dbqb"));
-        $post->find("postId", $this->form->value("id"));
-        $post->title  = $this->form->value("title");
-        $post->text = $this->form->value("text");
-        $post->pUpdated = date("Y-m-d H:i");
-        $post->save();
+        $comment = new Comment();
+        $comment->setDb($this->di->get("dbqb"));
+        $comment->find("commentId", $this->form->value("id"));
+        $comment->text = $this->form->value("text");
+        $comment->cUpdated = date("Y-m-d H:i");
+        $comment->save();
         return true;
     }
 
@@ -106,8 +99,8 @@ class UpdateForm extends FormModel
     //  */
     // public function callbackSuccess()
     // {
-    //     $this->di->get("response")->redirect("post")->send();
-    //     //$this->di->get("response")->redirect("post/update/{$post->id}");
+    //     // $this->di->get("response")->redirect("post/view/{$comment->post_id}")->send();
+    //     // $this->di->get("response")->redirect("comment/update/{$comment->id}");
     // }
 
 

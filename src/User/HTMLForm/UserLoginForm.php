@@ -100,7 +100,7 @@ class UserLoginForm extends FormModel
         // $loggedInUser = $user->findAll();
         
         $currentUser = [
-            "id" => $user->id,
+            "id" => $user->userId,
             "username" => $user->username,
             "email" => $user->email,
             "password" => $user->password

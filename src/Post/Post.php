@@ -14,6 +14,7 @@ class Post extends ActiveRecordModel
      * @var string $tableName name of the database table.
      */
     protected $tableName = "Post";
+    protected $tableIdColumn = "postId";
 
 
 
@@ -22,12 +23,12 @@ class Post extends ActiveRecordModel
      *
      * @var integer $id primary key auto incremented.
      */
-    public $id;
+    public $postId;
     public $user_id;
     public $title;
     public $text;
-    public $created;
-    public $updated;
-    public $deleted;
-    public $active;
+    public $pCreated;
+    public $pUpdated;
+    public $pDeleted;
+    public $pActive;
 }

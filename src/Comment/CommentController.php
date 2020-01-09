@@ -1,15 +1,13 @@
 <?php
 
-namespace Jiad\Post;
+namespace Jiad\Comment;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Jiad\Post\HTMLForm\CreateForm;
-use Jiad\Post\HTMLForm\EditForm;
-use Jiad\Post\HTMLForm\DeleteForm;
-use Jiad\Post\HTMLForm\UpdateForm;
-use Jiad\User\User;
-use Jiad\Comment\Comment;
+use Jiad\Comment\HTMLForm\CreateForm;
+use Jiad\Comment\HTMLForm\EditForm;
+use Jiad\Comment\HTMLForm\DeleteForm;
+use Jiad\Comment\HTMLForm\UpdateForm;
 use Anax\TextFilter\TextFilter;
 
 // use Anax\Route\Exception\ForbiddenException;
@@ -19,7 +17,7 @@ use Anax\TextFilter\TextFilter;
 /**
  * A sample controller to show how a controller class can be implemented.
  */
-class PostController implements ContainerInjectableInterface
+class CommentController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -54,19 +52,14 @@ class PostController implements ContainerInjectableInterface
     public function indexActionGet() : object
     {
         $page = $this->di->get("page");
-        $post = new Post();
-        $post->setDb($this->di->get("dbqb"));
-        
-        $user = new User();
-        $user->setDb($this->di->get("dbqb"));
+        $comment = new Comment();
+        $comment->setDb($this->di->get("dbqb"));
 
         $filter = new TextFilter();
 
-        $page->add("post/crud/view-all", [
-            "posts" => $post->findAllJoin("User", "User.userId = Post.user_id"),
+        $page->add("comment/crud/view-all", [
+            "comments" => $comment->findAllWhere("post_id = ?", 5),
             "filter" => $filter,
-            // "posts" => $post->findAll(),
-            // "users" => $user->findAll(),
         ]);
 
         return $page->render([
@@ -81,20 +74,19 @@ class PostController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function createAction() : object
+    public function createAction($post_id) : object
     {
-
         $sessionUser = $this->di->get("session")->get("user");
 
         if (!$sessionUser["id"]) {
             $this->di->get("response")->redirect("user/login");
         }
-
+        
         $page = $this->di->get("page");
-        $form = new CreateForm($this->di);
+        $form = new CreateForm($this->di, $post_id);
         $form->check();
 
-        $page->add("post/crud/create", [
+        $page->add("comment/crud/create", [
             "form" => $form->getHTML(),
         ]);
 
@@ -122,7 +114,7 @@ class PostController implements ContainerInjectableInterface
         $form = new DeleteForm($this->di);
         $form->check();
 
-        $page->add("post/crud/delete", [
+        $page->add("comment/crud/delete", [
             "form" => $form->getHTML(),
         ]);
 
@@ -152,68 +144,16 @@ class PostController implements ContainerInjectableInterface
         $form = new UpdateForm($this->di, $id);
         $form->check();
 
-        $page->add("post/crud/update", [
+        $comment = new Comment();
+        $comment->setDb($this->di->get("dbqb"));
+
+        $page->add("comment/crud/update", [
             "form" => $form->getHTML(),
+            "comment" => $comment->find("commentId", $id),
         ]);
 
         return $page->render([
             "title" => "Update an item",
-        ]);
-    }
-
-
-    /**
-     * Handler with form to update an item.
-     *
-     * @param int $id the id to update.
-     *
-     * @return object as a response object
-     */
-    public function viewAction(int $id) : object
-    {
-        $page = $this->di->get("page");
-        $post = new Post();
-        $post->setDb($this->di->get("dbqb"));
-        
-        $user = new User();
-        $user->setDb($this->di->get("dbqb"));
-        
-        $comment = new Comment();
-        $comment->setDb($this->di->get("dbqb"));
-
-        $filter = new TextFilter();
-
-        $selectedPost = $post->find("postId", $id);
-        $author = $user->find("userId", $selectedPost->user_id);
-
-        $page->add("post/crud/single", [
-            "post" => $selectedPost,
-            "author" => $author,
-            "filter" => $filter,
-        ]);
-
-        $page->add("post/crud/comments", [
-            // "post" => $selectedPost,
-            // "author" => $author,
-        ]);
-
-        $comments = $comment->findAllWhereJoin(
-            "post_id = ?", 
-            $id,
-            "User",
-            "Comment.user_Id = User.userId"
-        );
-
-        $comments = $comment->sort($comments);
-
-        $page->add("comment/crud/view-all", [
-            "comments" => $comments,
-            "users" => $user->findAll(),
-            "filter" => $filter,
-        ]);
-
-        return $page->render([
-            "title" => "Single post",
         ]);
     }
 }

@@ -7,9 +7,9 @@ PRAGMA foreign_keys = ON;
 
 DROP TABLE IF EXISTS TagsPost;
 DROP TABLE IF EXISTS Comment;
-DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Post;
 DROP TABLE IF EXISTS Tags;
+DROP TABLE IF EXISTS Post;
+DROP TABLE IF EXISTS User;
 
 
 --
@@ -21,15 +21,15 @@ DROP TABLE IF EXISTS Tags;
 -- Table User
 --
 CREATE TABLE User (
-    "id" INTEGER PRIMARY KEY,
+    "userId" INTEGER PRIMARY KEY,
     "username" TEXT UNIQUE,
     "email" TEXT UNIQUE,
     "password" TEXT,
-    "created" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "uCreated" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     -- "created" TIMESTAMP,
-    "updated" DATETIME,
-    "deleted" DATETIME,
-    "active" DATETIME
+    "uUpdated" DATETIME,
+    "uDeleted" DATETIME,
+    "uActive" DATETIME
 );
 
 
@@ -37,67 +37,34 @@ CREATE TABLE User (
 -- Table Post
 --
 CREATE TABLE Post (
-    "id" INTEGER PRIMARY KEY,
+    "postId" INTEGER PRIMARY KEY,
     "user_id" INTEGER,
     "title" TEXT,
     "text" TEXT,
-    "created" TIMESTAMP,
-    "updated" DATETIME,
-    "deleted" DATETIME,
-    "active" DATETIME,
-    FOREIGN KEY("user_id") REFERENCES User("id")
+    "pCreated" TIMESTAMP,
+    "pUpdated" DATETIME,
+    "pDeleted" DATETIME,
+    "pActive" DATETIME,
+    FOREIGN KEY("user_id") REFERENCES User("userId")
 );
-
--- --
--- -- Table User
--- --
--- DROP TABLE IF EXISTS User;
--- CREATE TABLE User (
---     "id" INTEGER PRIMARY KEY NOT NULL,
---     "username" TEXT UNIQUE NOT NULL,
---     "email" TEXT UNIQUE NOT NULL,
---     "password" TEXT,
---     "created" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     -- "created" TIMESTAMP,
---     "updated" DATETIME,
---     "deleted" DATETIME,
---     "active" DATETIME
--- );
-
-
--- --
--- -- Table Post
--- --
--- DROP TABLE IF EXISTS Post;
--- CREATE TABLE Post (
---     "id" INTEGER PRIMARY KEY NOT NULL,
---     "user_id" INTEGER NOT NULL,
---     "title" TEXT,
---     "text" TEXT,
---     "created" TIMESTAMP,
---     "updated" DATETIME,
---     "deleted" DATETIME,
---     "active" DATETIME,
---     FOREIGN KEY("user_id") REFERENCES User("id")
--- );
 
 
 --
 -- Table Comment
 --
 CREATE TABLE Comment (
-    "id" INTEGER PRIMARY KEY,
+    "commentId" INTEGER PRIMARY KEY,
     "user_id" INTEGER,
     "post_id" INTEGER,
-    "comment_id" INTEGER,
+    "reply_id" INTEGER,
     "text" TEXT,
-    "created" TIMESTAMP,
-    "updated" DATETIME,
-    "deleted" DATETIME,
-    "active" DATETIME,
-    FOREIGN KEY("user_id") REFERENCES User("id"),
-    FOREIGN KEY("post_id") REFERENCES Post("id"),
-    FOREIGN KEY("comment_id") REFERENCES Comment("id")
+    "cCreated" TIMESTAMP,
+    "cUpdated" DATETIME,
+    "cDeleted" DATETIME,
+    "cActive" DATETIME,
+    FOREIGN KEY("user_id") REFERENCES User("userId"),
+    FOREIGN KEY("post_id") REFERENCES Post("postId"),
+    FOREIGN KEY("reply_id") REFERENCES Comment("commentId")
 );
 
 
@@ -105,7 +72,7 @@ CREATE TABLE Comment (
 -- Table Tag
 --
 CREATE TABLE Tags (
-    "id" INTEGER PRIMARY KEY,
+    "tagId" INTEGER PRIMARY KEY,
     "tag" TEXT UNIQUE
 );
 
@@ -116,6 +83,6 @@ CREATE TABLE Tags (
 CREATE TABLE TagsPost (
     "tag_id" INTEGER,
     "post_id" INTEGER,
-    FOREIGN KEY("tag_id") REFERENCES Tags("id"),
-    FOREIGN KEY("post_id") REFERENCES Post("id")
+    FOREIGN KEY("tag_id") REFERENCES Tags("tagId"),
+    FOREIGN KEY("post_id") REFERENCES Post("postId")
 );

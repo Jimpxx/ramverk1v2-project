@@ -1,63 +1,50 @@
 <?php
 
-namespace Jiad\Post\HTMLForm;
+namespace Jiad\Comment\HTMLForm;
 
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
-use Jiad\Post\Post;
+use Jiad\Comment\Comment;
 
 /**
- * Form to delete an item.
+ * Form to create an item.
  */
-class DeleteForm extends FormModel
+class CreateForm extends FormModel
 {
     /**
      * Constructor injects with DI container.
      *
      * @param Psr\Container\ContainerInterface $di a service container
      */
-    public function __construct(ContainerInterface $di)
+    public function __construct(ContainerInterface $di, $post_id)
     {
         parent::__construct($di);
+        // $this->post_id = $post_id;
         $this->form->create(
             [
                 "id" => __CLASS__,
-                "legend" => "Delete an item",
+                "legend" => "New comment",
+                "escape-values" => false
             ],
             [
-                "select" => [
-                    "type"        => "select",
-                    "label"       => "Select item to delete:",
-                    "options"     => $this->getAllItems(),
+                "post_id" => [
+                    "type" => "hidden",
+                    "validation" => ["not_empty"],
+                    "value" => $post_id
+                ],
+
+                "text" => [
+                    "type" => "textarea",
+                    "validation" => ["not_empty"],
                 ],
 
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Delete item",
+                    "value" => "Create comment",
                     "callback" => [$this, "callbackSubmit"]
                 ],
             ]
         );
-    }
-
-
-
-    /**
-     * Get all items as array suitable for display in select option dropdown.
-     *
-     * @return array with key value of all items.
-     */
-    protected function getAllItems() : array
-    {
-        $post = new Post();
-        $post->setDb($this->di->get("dbqb"));
-
-        $posts = ["-1" => "Select an item..."];
-        foreach ($post->findAll() as $obj) {
-            $posts[$obj->postId] = "{$obj->title} ({$obj->postId})";
-        }
-
-        return $posts;
     }
 
 
@@ -70,10 +57,17 @@ class DeleteForm extends FormModel
      */
     public function callbackSubmit() : bool
     {
-        $post = new Post();
-        $post->setDb($this->di->get("dbqb"));
-        $post->find("postId", $this->form->value("select"));
-        $post->delete();
+        $comment = new Comment();
+        $comment->setDb($this->di->get("dbqb"));
+        $comment->user_id  = $this->di->get("session")->get("user")["id"];
+        // $comment->post_id  = $post_id;
+        $comment->post_id  = $this->form->value("post_id");
+        if ($this->di->get("request")->getGet("replyId")) {
+            $comment->reply_id = $this->di->get("request")->getGet("replyId");
+        }
+        $comment->text  = $this->form->value("text");
+        $comment->cCreated = date("Y-m-d H:i");
+        $comment->save();
         return true;
     }
 
@@ -86,7 +80,7 @@ class DeleteForm extends FormModel
      */
     public function callbackSuccess()
     {
-        $this->di->get("response")->redirect("post")->send();
+        $this->di->get("response")->redirect("post/view/{$this->form->value("post_id")}")->send();
     }
 
 

@@ -20,32 +20,38 @@ $urlToDelete = url("post/delete");
 
 ?><h1>View all Posts</h1>
 
+<?php if ($this->di->get("session")->get("user")) : ?>
 <p>
     <a href="<?= $urlToCreate ?>">Create new post</a> 
     <!-- |  -->
     <!-- <a href="<?= $urlToDelete ?>">Delete</a> -->
 </p>
+<?php endif; ?>
 
 <?php if (!$posts) : ?>
     <p>There are no posts to show.</p>
 <?php
     return;
-endif;
-?>
+endif; ?>
 
 
 <?php foreach ($posts as $post) : ?>
 
+    <?php 
+        // Gravatar Image
+        $email = $post->email;
+        $size = 40;
+        $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "&s=" . $size;
+    ?>
+
 <div class="post">
     <h3><?= $post->title ?></h3>
-    <p><?= $post->text ?></p>
+    <p><?= $filter->parse($post->text, ["markdown"])->text ?></p>
+    <p><a href="<?= url("user/profile/{$post->user_id}") ?>"><?= $post->username ?></a></p>
+    <img src="<?= $grav_url ?>" alt="">
+    <p>Created: <?= $post->pCreated ?></p>
+    <p><a href="<?= url("post/view/{$post->postId}"); ?>">View post</a></p>
 
-    <?php foreach ($users as $user) : ?>
-        <?php if ($user->id == $post->user_id) : ?>
-            <p>Creator: <?= $user->username ?></p>
-        <?php endif; ?>
-    <?php endforeach; ?>
-    <a href="<?= url("post/view/{$post->id}"); ?>">View post</a>
 </div>
 <?php endforeach; ?>
 
@@ -61,11 +67,11 @@ endif;
     <?php foreach ($posts as $post) : ?>
     <tr>
         <td>
-            <a href="<?= url("post/view/{$post->id}"); ?>"><?= $post->id ?></a>
+            <a href="<?= url("post/view/{$post->postId}"); ?>"><?= $post->postId ?></a>
         </td>
         <td>
         <?php foreach ($users as $user) : ?>
-            <?php if ($user->id == $post->user_id) : ?>
+            <?php if ($user->userId == $post->user_id) : ?>
                 <?= $user->username ?>
             <?php endif; ?>
         <?php endforeach; ?>
