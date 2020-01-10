@@ -11,6 +11,11 @@ use Anax\Commons\ContainerInjectableTrait;
 // use Anax\Route\Exception\NotFoundException;
 // use Anax\Route\Exception\InternalErrorException;
 
+use Jiad\User\User;
+use Jiad\Post\Post;
+use Jiad\Comment\Comment;
+Use Jiad\TagsPost\TagsPost;
+
 /**
  * A sample controller to show how a controller class can be implemented.
  */

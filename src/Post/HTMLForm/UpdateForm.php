@@ -5,6 +5,8 @@ namespace Jiad\Post\HTMLForm;
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
 use Jiad\Post\Post;
+use Jiad\Tags\Tags;
+use Jiad\TagsPost\TagsPost;
 
 /**
  * Form to update an item.
@@ -20,6 +22,7 @@ class UpdateForm extends FormModel
     public function __construct(ContainerInterface $di, $id)
     {
         parent::__construct($di);
+        $this->postId = $id;
         $post = $this->getItemDetails($id);
         $this->form->create(
             [
@@ -47,6 +50,14 @@ class UpdateForm extends FormModel
                     "value" => $post->text,
                 ],
 
+                "tags" => [
+                    "type" => "checkbox-multiple",
+                    "label" => "Tags",
+                    "values" => $this->getAllItems(),
+                    "checked" => $this->getAllChecked(),
+                    // "checked" => ["Stocks", "Money"]
+                ],
+
                 "submit" => [
                     "type" => "submit",
                     "value" => "Save",
@@ -58,6 +69,63 @@ class UpdateForm extends FormModel
                 ],
             ]
         );
+    }
+
+
+    
+            /**
+     * Get all items as array suitable for display in select option dropdown.
+     *
+     * @return array with key value of all items.
+     */
+    protected function getAllChecked() : array
+    {
+        $tag = new Tags();
+        $tag->setDb($this->di->get("dbqb"));
+
+        $post = new Post();
+        $post->setDb($this->di->get("dbqb"));
+
+        $tagsPost = new TagsPost();
+        $tagsPost->setDb($this->di->get("dbqb"));
+
+        $checked = [];
+        // $checked = ["-1" => "Select an item..."];
+        foreach ($tag->findAllWhereJoinJoin("TagsPost.post_id = ?", $this->postId, "TagsPost", "TagsPost.tag_id = Tags.tagId", "Post", "Post.postId = TagsPost.post_id") as $obj) {
+            $checked[$obj->tagId] = "{$obj->tag}";
+            // $checked["checked"] = "{$obj->tagId}";
+
+        }
+
+        return $checked;
+    }
+
+    
+            /**
+     * Get all items as array suitable for display in select option dropdown.
+     *
+     * @return array with key value of all items.
+     */
+    protected function getAllItems() : array
+    {
+        $tag = new Tags();
+        $tag->setDb($this->di->get("dbqb"));
+
+        // $post = new Post();
+        // $post->setDb($this->di->get("dbqb"));
+
+        // $tagsPost = new TagsPost();
+        // $tagsPost->setDb($this->di->get("dbqb"));
+
+        $tags = [];
+        // $tags = ["-1" => "Select an item..."];
+        foreach ($tag->findAll() as $obj) {
+            $tags[$obj->tagId] = "{$obj->tag}";
+            // $tags["checked"] = "{$obj->tagId}";
+
+        }
+
+        return $tags;
     }
 
 
@@ -94,6 +162,32 @@ class UpdateForm extends FormModel
         $post->text = $this->form->value("text");
         $post->pUpdated = date("Y-m-d H:i");
         $post->save();
+
+        if ($this->form->value("tags")) {
+            $tag = new Tags();
+            $tag->setDb($this->di->get("dbqb"));
+            $items = $this->form->value("tags");
+            // $tag->save();
+
+            $tagsPost = new TagsPost();
+            $tagsPost->setDb($this->di->get("dbqb"));
+            $tagsPost->deleteWhere("post_id = ?", $this->postId);
+            
+            foreach($items as $item){
+                $tagsPost = new TagsPost();
+                $tagsPost->setDb($this->di->get("dbqb"));
+                // var_dump($item);
+                
+                $foundTag = $tag->find("tag", $item);
+                if ($foundTag) {
+                    // var_dump($foundTag);
+                    $tagsPost->tag_id = $foundTag->tagId;
+                    $tagsPost->post_id = $post->postId;
+                    $tagsPost->save();
+                }
+            }
+        }
+
         return true;
     }
 

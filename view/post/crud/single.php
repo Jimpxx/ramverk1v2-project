@@ -27,6 +27,12 @@ $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email )
 
 <a href="<?= $urlToPosts ?>">Back</a>
 
+<?php if ($this->di->get("session")->get("user")["id"] == $author->userId) : ?>
+<p>
+<a href="<?= url("post/update/$post->postId") ?>">Edit post</a>
+</p>
+<?php endif; ?>
+
 <h1><?= $post->title ?></h1>
 
 <p><?= $filter->parse($post->text, ["markdown"])->text ?></p>

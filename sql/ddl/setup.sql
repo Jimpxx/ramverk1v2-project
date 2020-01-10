@@ -81,6 +81,7 @@ CREATE TABLE Tags (
 -- Table TagsPost
 --
 CREATE TABLE TagsPost (
+    "id" INTEGER PRIMARY KEY,
     "tag_id" INTEGER,
     "post_id" INTEGER,
     FOREIGN KEY("tag_id") REFERENCES Tags("tagId"),

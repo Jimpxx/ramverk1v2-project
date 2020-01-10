@@ -28,6 +28,11 @@ $navbar = [
             "url" => "post",
             "title" => "Posts.",
         ],
+        [
+            "text" => "Tags",
+            "url" => "tags",
+            "title" => "Tags.",
+        ],
         // [
         //     "text" => "Login",
         //     "url" => "user/login",
