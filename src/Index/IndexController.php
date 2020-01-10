@@ -14,6 +14,7 @@ use Anax\Commons\ContainerInjectableTrait;
 use Jiad\User\User;
 use Jiad\Post\Post;
 use Jiad\Comment\Comment;
+use Jiad\Tags\Tags;
 Use Jiad\TagsPost\TagsPost;
 
 /**
@@ -59,10 +60,45 @@ class IndexController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
 
-        $user = $this->di->get("session")->get("user");
+        // $user = $this->di->get("session")->get("user");
+
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+
+        // findAllJoinGroupOrderLimit($select = null, $table, $condition, $group, $order, $limit)
+        $topUsers = $user->findAllJoinGroupOrderLimit(
+            "*, count(User.userId) as amount",
+            "Post",
+            "User.userId = Post.user_id",
+            "User.userId",
+            "amount DESC",
+            "5"
+        );
+
+        $post = new Post();
+        $post->setDb($this->di->get("dbqb"));
+
+        $latestPosts = $post->findAllOrderByLimit("Post.pCreated DESC", "3");
+
+        $tag = new Tags();
+        $tag->setDb($this->di->get("dbqb"));
+
+        // findAllJoinJoinGroupOrderLimit($select = null, $table, $condition, $table2, $condition2, $group, $order, $limit)
+        $popularTags = $tag->findAllJoinJoinGroupOrderLimit(
+            "*, count(Tags.tagId) as amount",
+            "TagsPost",
+            "TagsPost.tag_id = Tags.tagId",
+            "Post",
+            "TagsPost.post_id = Post.postId",
+            "Tags.tagId",
+            "amount DESC",
+            "5"
+        );
 
         $page->add("index/home", [
-            "user" => $user,
+            "topUsers" => $topUsers,
+            "latestPosts" => $latestPosts,
+            "popularTags" => $popularTags,
         ]);
 
         return $page->render([
