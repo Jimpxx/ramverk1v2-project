@@ -33,16 +33,6 @@ $navbar = [
             "url" => "tags",
             "title" => "Tags.",
         ],
-        // [
-        //     "text" => "Login",
-        //     "url" => "user/login",
-        //     "title" => "User Login.",
-        // ],
-        // [
-        //     "text" => "Logout",
-        //     "url" => "user/logout",
-        //     "title" => "User Logout.",
-        // ],
     ],
 ];
 
@@ -62,12 +52,6 @@ if ($di->get("session")->get("user")) {
 
 }
 else {
-    // $loggedOut = [
-    //     "text" => "Login",
-    //     "url" => "user/login",
-    //     "title" => "User Login.",
-    // ];
-    // array_push($navbar["items"], $loggedOut);
     array_push($navbar["items"], array(
         "text" => "Login",
         "url" => "user/login",

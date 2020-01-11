@@ -137,7 +137,6 @@ class UpdateUserForm extends FormModel
             "username" => $user->username,
             "email" => $user->email,
             "password" => $user->password,
-            "newpass" => $newPassword
         ];
         $this->di->get("session")->set("user", $currentUser);
 

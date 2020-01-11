@@ -408,7 +408,8 @@ bats:
 theme:
 	@$(call HELPTEXT,$@)
 	[ ! -d theme ] || $(MAKE) --directory=theme build
-	rsync -a theme/build/css htdocs/
+	rsync -a theme/build/less/css htdocs/
+	# rsync -a theme/build/css htdocs/
 
 
 
