@@ -152,12 +152,8 @@ class TagsController implements ContainerInjectableInterface
 
 
         $page->add("tags/crud/single", [
-            // "tag" => $tag->findAllWhereJoin(
-            //     "tagId = ?",
-            //     $id,
-            //     "TagsPost",
-            //     "TagsPost.tag_id = Tags.tagId"
-            // ),
+            "tagId" => $id,
+            "singleTag" => $tag->find("tagId", $id),
             "tags" => $tag->findAllWhereJoinJoin(
                 "tagId = ?",
                 $id,

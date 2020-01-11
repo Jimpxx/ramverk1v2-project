@@ -89,7 +89,7 @@ class UserLoginForm extends FormModel
 
 
         
-        $this->form->addOutput("User " . $user->username . " logged in.");
+        // $this->form->addOutput("User " . $user->username . " logged in.");
         
         // var_dump($user);
         

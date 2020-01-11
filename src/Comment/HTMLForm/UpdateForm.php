@@ -20,7 +20,7 @@ class UpdateForm extends FormModel
     public function __construct(ContainerInterface $di, $id)
     {
         parent::__construct($di);
-        $comment = $this->getItemDetails($id);
+        $this->comment = $this->getItemDetails($id);
         $this->form->create(
             [
                 "id" => __CLASS__,
@@ -32,13 +32,13 @@ class UpdateForm extends FormModel
                     "type" => "text",
                     "validation" => ["not_empty"],
                     "readonly" => true,
-                    "value" => $comment->commentId,
+                    "value" => $this->comment->commentId,
                 ],
 
                 "text" => [
                     "type" => "textarea",
                     "validation" => ["not_empty"],
-                    "value" => $comment->text,
+                    "value" => $this->comment->text,
                 ],
 
                 "submit" => [
@@ -92,16 +92,16 @@ class UpdateForm extends FormModel
 
 
 
-    // /**
-    //  * Callback what to do if the form was successfully submitted, this
-    //  * happen when the submit callback method returns true. This method
-    //  * can/should be implemented by the subclass for a different behaviour.
-    //  */
-    // public function callbackSuccess()
-    // {
-    //     // $this->di->get("response")->redirect("post/view/{$comment->post_id}")->send();
-    //     // $this->di->get("response")->redirect("comment/update/{$comment->id}");
-    // }
+    /**
+     * Callback what to do if the form was successfully submitted, this
+     * happen when the submit callback method returns true. This method
+     * can/should be implemented by the subclass for a different behaviour.
+     */
+    public function callbackSuccess()
+    {
+        $this->di->get("response")->redirect("post/view/{$this->comment->post_id}")->send();
+        // $this->di->get("response")->redirect("comment/update/{$comment->id}");
+    }
 
 
 

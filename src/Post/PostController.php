@@ -110,7 +110,7 @@ class PostController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function deleteAction() : object
+    public function deleteAction(int $id) : object
     {
         $sessionUser = $this->di->get("session")->get("user");
 
@@ -119,7 +119,7 @@ class PostController implements ContainerInjectableInterface
         }
         
         $page = $this->di->get("page");
-        $form = new DeleteForm($this->di);
+        $form = new DeleteForm($this->di, $id);
         $form->check();
 
         $page->add("post/crud/delete", [

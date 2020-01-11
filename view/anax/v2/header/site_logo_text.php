@@ -15,9 +15,10 @@ namespace Anax\View;
     <a href="<?= url($homeLink) ?>">
         <?php if (isset($siteLogoTextIcon)) : ?>
         <span class="site-logo-text-icon" >
-            <img src="<?= asset($siteLogoTextIcon) ?>" alt="<?= $siteLogoTextIconAlt ?>">
+            EoStocks
+            <!-- <img src="<?= asset($siteLogoTextIcon) ?>" alt="<?= $siteLogoTextIconAlt ?>"> -->
         </span>
         <?php endif; ?>
-        <?= $siteLogoText ?>
+        
     </a>
 </span>

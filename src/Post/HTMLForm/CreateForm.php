@@ -26,7 +26,7 @@ class CreateForm extends FormModel
         $this->form->create(
             [
                 "id" => __CLASS__,
-                "legend" => "Details of the item",
+                "legend" => "Details of the post",
                 "escape-values" => false
             ],
             [
@@ -129,9 +129,8 @@ class CreateForm extends FormModel
      */
     public function callbackSuccess()
     {
-        // $this->di->get("response")->redirect("post")->send();
-        $this->di->get("response")->redirectSelf()->send();
-        var_dump($this->form->value("tags"));
+        $this->di->get("response")->redirect("post")->send();
+        // $this->di->get("response")->redirectSelf()->send();
     }
 
 

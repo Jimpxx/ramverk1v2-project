@@ -6,6 +6,7 @@ use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
 
 use Jiad\Post\Post;
+use Jiad\Tags\Tags;
 
 
 /**
@@ -92,16 +93,16 @@ class UpdateForm extends FormModel
 
 
 
-    // /**
-    //  * Callback what to do if the form was successfully submitted, this
-    //  * happen when the submit callback method returns true. This method
-    //  * can/should be implemented by the subclass for a different behaviour.
-    //  */
-    // public function callbackSuccess()
-    // {
-    //     $this->di->get("response")->redirect("tags")->send();
-    //     //$this->di->get("response")->redirect("tags/update/{$tags->id}");
-    // }
+    /**
+     * Callback what to do if the form was successfully submitted, this
+     * happen when the submit callback method returns true. This method
+     * can/should be implemented by the subclass for a different behaviour.
+     */
+    public function callbackSuccess()
+    {
+        // $this->di->get("response")->redirect("tags")->send();
+        $this->di->get("response")->redirect("tags/view/{$this->form->value("id")}");
+    }
 
 
 

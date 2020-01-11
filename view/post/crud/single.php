@@ -30,6 +30,7 @@ $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email )
 <?php if ($this->di->get("session")->get("user")["id"] == $author->userId) : ?>
 <p>
 <a href="<?= url("post/update/$post->postId") ?>">Edit post</a>
+<a href="<?= url("post/delete/$post->postId") ?>">Delete post</a>
 </p>
 <?php endif; ?>
 

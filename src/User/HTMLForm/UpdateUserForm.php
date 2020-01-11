@@ -141,22 +141,22 @@ class UpdateUserForm extends FormModel
         ];
         $this->di->get("session")->set("user", $currentUser);
 
-        $this->form->addOutput("User updated.");
+        // $this->form->addOutput("User updated.");
         return true;
     }
 
 
 
-    // /**
-    //  * Callback what to do if the form was successfully submitted, this
-    //  * happen when the submit callback method returns true. This method
-    //  * can/should be implemented by the subclass for a different behaviour.
-    //  */
-    // public function callbackSuccess()
-    // {
-    //     $this->di->get("response")->redirect("book")->send();
-    //     //$this->di->get("response")->redirect("book/update/{$book->id}");
-    // }
+    /**
+     * Callback what to do if the form was successfully submitted, this
+     * happen when the submit callback method returns true. This method
+     * can/should be implemented by the subclass for a different behaviour.
+     */
+    public function callbackSuccess()
+    {
+        $this->di->get("response")->redirect("user/profile/{$this->form->value("id")}")->send();
+        //$this->di->get("response")->redirect("book/update/{$book->id}");
+    }
 
 
 

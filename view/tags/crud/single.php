@@ -21,6 +21,14 @@ $urlToCreate = url("tags/create");
 
 ?>
 
+<?php if ($this->di->get("session")->get("user")["id"]) : ?>
+    <p>
+    <a href="<?= url("tags/update/{$tagId}"); ?>">Edit tag</a>
+    </p>
+<?php endif; ?>
+
+<h1>The tag <?= $singleTag->tag ?></h1>
+
 <?php if (!$tags) : ?>
     <p>There are no posts connected to this tag.</p>
 <?php
@@ -29,14 +37,10 @@ endif;
 ?>
 
 
-<h1>The tag <?= $tags[0]->tag ?></h1>
 
 
-<?php if ($this->di->get("session")->get("user")["id"]) : ?>
-    <p>
-    <a href="<?= url("tags/update/{$tags[0]->tagId}"); ?>">Edit tag</a>
-    </p>
-<?php endif; ?>
+
+
 
 <h2>The following posts are tagged with <strong><?= $tags[0]->tag ?></strong></h2>
 

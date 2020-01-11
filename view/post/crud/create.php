@@ -17,7 +17,7 @@ $urlToViewItems = url("post");
 
 
 
-?><h1>Create a item</h1>
+?><h1>Create a post</h1>
 
 <?= $form ?>
 

@@ -5,6 +5,8 @@ namespace Jiad\Post\HTMLForm;
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
 use Jiad\Post\Post;
+use Jiad\TagsPost\TagsPost;
+use Jiad\Comment\Comment;
 
 /**
  * Form to delete an item.
@@ -16,24 +18,41 @@ class DeleteForm extends FormModel
      *
      * @param Psr\Container\ContainerInterface $di a service container
      */
-    public function __construct(ContainerInterface $di)
+    public function __construct(ContainerInterface $di, $id)
     {
         parent::__construct($di);
+        $this->postId = $id;
+        $post = $this->getItemDetails($id);
         $this->form->create(
             [
                 "id" => __CLASS__,
                 "legend" => "Delete an item",
             ],
             [
-                "select" => [
-                    "type"        => "select",
-                    "label"       => "Select item to delete:",
-                    "options"     => $this->getAllItems(),
+                "id" => [
+                    "type" => "text",
+                    "validation" => ["not_empty"],
+                    "readonly" => true,
+                    "value" => $post->postId,
+                ],
+
+                "title" => [
+                    "type" => "text",
+                    "validation" => ["not_empty"],
+                    "readonly" => true,
+                    "value" => $post->title,
+                ],
+
+                "text" => [
+                    "type" => "textarea",
+                    "validation" => ["not_empty"],
+                    "readonly" => true,
+                    "value" => $post->text,
                 ],
 
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Delete item",
+                    "value" => "Delete post",
                     "callback" => [$this, "callbackSubmit"]
                 ],
             ]
@@ -61,6 +80,22 @@ class DeleteForm extends FormModel
     }
 
 
+        /**
+     * Get details on item to load form with.
+     *
+     * @param integer $id get details on item with id.
+     * 
+     * @return Post
+     */
+    public function getItemDetails($id) : object
+    {
+        $post = new Post();
+        $post->setDb($this->di->get("dbqb"));
+        $post->find("postId", $id);
+        return $post;
+    }
+
+
 
     /**
      * Callback for submit-button which should return true if it could
@@ -72,8 +107,16 @@ class DeleteForm extends FormModel
     {
         $post = new Post();
         $post->setDb($this->di->get("dbqb"));
-        $post->find("postId", $this->form->value("select"));
+        $post->find("postId", $this->form->value("id"));
         $post->delete();
+
+        $tagsPost = new TagsPost();
+        $tagsPost->setDb($this->di->get("dbqb"));
+        $tagsPost->deleteWhere("post_id = ?", $this->postId);
+
+        $comment = new Comment();
+        $comment->setDb($this->di->get("dbqb"));
+        $comment->deleteWhere("post_id = ?", $this->postId);
         return true;
     }
 
