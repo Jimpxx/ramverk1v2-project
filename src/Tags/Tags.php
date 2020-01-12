@@ -2,12 +2,14 @@
 
 namespace Jiad\Tags;
 
-use Anax\DatabaseActiveRecord\ActiveRecordModel;
+// use Anax\DatabaseActiveRecord\ActiveRecordModel;
+use Jiad\Models\ActiveRecordExtension;
 
 /**
  * A database driven model using the Active Record design pattern.
  */
-class Tags extends ActiveRecordModel
+class Tags extends ActiveRecordExtension
+// class Tags extends ActiveRecordModel
 {
     /**
      * @var string $tableName name of the database table.

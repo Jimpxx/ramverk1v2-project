@@ -2,13 +2,15 @@
 
 namespace Jiad\Post;
 
-use Anax\DatabaseActiveRecord\ActiveRecordModel;
+// use Anax\DatabaseActiveRecord\ActiveRecordModel;
+use Jiad\Models\ActiveRecordExtension;
 
 
 /**
  * A database driven model using the Active Record design pattern.
  */
-class Post extends ActiveRecordModel
+class Post extends ActiveRecordExtension
+// class Post extends ActiveRecordModel
 {
     /**
      * @var string $tableName name of the database table.

@@ -2,12 +2,14 @@
 
 namespace Jiad\User;
 
-use Anax\DatabaseActiveRecord\ActiveRecordModel;
+// use Anax\DatabaseActiveRecord\ActiveRecordModel;
+use Jiad\Models\ActiveRecordExtension;
 
 /**
  * A database driven model.
  */
-class User extends ActiveRecordModel
+class User extends ActiveRecordExtension
+// class User extends ActiveRecordModel
 {
     /**
      * @var string $tableName name of the database table.

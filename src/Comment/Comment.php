@@ -2,12 +2,14 @@
 
 namespace Jiad\Comment;
 
-use Anax\DatabaseActiveRecord\ActiveRecordModel;
+// use Anax\DatabaseActiveRecord\ActiveRecordModel;
+use Jiad\Models\ActiveRecordExtension;
 
 /**
  * A database driven model using the Active Record design pattern.
  */
-class Comment extends ActiveRecordModel
+class Comment extends ActiveRecordExtension
+// class Comment extends ActiveRecordModel
 {
     /**
      * @var string $tableName name of the database table.
