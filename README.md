@@ -15,3 +15,4 @@ The content you see on the website is fiction, do not take it seriously.
 -   Run `composer install` from inside the directory
 -   Create the database by running `sqlite3 data/db.sqlite < sql/ddl/setup.sql` from inside the directory
 -   Change permissions by running `chmod 666 data/db.sqlite` from inside the directory
+-   Enjoy.
