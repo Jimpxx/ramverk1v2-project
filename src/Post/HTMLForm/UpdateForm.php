@@ -160,15 +160,16 @@ class UpdateForm extends FormModel
         $post->pUpdated = date("Y-m-d H:i");
         $post->save();
 
+        $tagsPost = new TagsPost();
+        $tagsPost->setDb($this->di->get("dbqb"));
+        $tagsPost->deleteWhere("post_id = ?", $this->postId);
+        
         if ($this->form->value("tags")) {
             $tag = new Tags();
             $tag->setDb($this->di->get("dbqb"));
             $items = $this->form->value("tags");
             // $tag->save();
 
-            $tagsPost = new TagsPost();
-            $tagsPost->setDb($this->di->get("dbqb"));
-            $tagsPost->deleteWhere("post_id = ?", $this->postId);
             
             foreach ($items as $item) {
                 $tagsPost = new TagsPost();
