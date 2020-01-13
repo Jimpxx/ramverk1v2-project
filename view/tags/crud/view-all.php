@@ -20,10 +20,12 @@ $urlToCreate = url("tags/create");
 
 ?><h1>View all tags</h1>
 
-<p>
-    <a class="btn" href="<?= $urlToCreate ?>">Create new tag</a>
-    <!-- <a href="<?= $urlToDelete ?>">Delete</a> -->
-</p>
+<?php if ($this->di->get("session")->get("user")["id"]) : ?>
+    <p>
+        <a class="btn" href="<?= $urlToCreate ?>">Create new tag</a>
+        <!-- <a href="<?= $urlToDelete ?>">Delete</a> -->
+    </p>
+<?php endif; ?>
 
 <?php if (!$tags) : ?>
     <p>There are no items to show.</p>

@@ -71,14 +71,14 @@ class IndexController implements ContainerInjectableInterface
             "User.userId = Post.user_id",
             "User.userId",
             "amount DESC",
-            "5",
+            "4",
             "*, count(User.userId) as amount"
         );
 
         $post = new Post();
         $post->setDb($this->di->get("dbqb"));
 
-        $latestPosts = $post->findAllOrderByLimit("Post.pCreated DESC", "3");
+        $latestPosts = $post->findAllOrderByLimit("Post.pCreated DESC", "5");
 
         $tag = new Tags();
         $tag->setDb($this->di->get("dbqb"));

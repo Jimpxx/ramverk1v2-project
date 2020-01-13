@@ -13,24 +13,24 @@ $navbar = [
     // Here comes the menu items
     "items" => [
         [
-            "text" => "Hem",
+            "text" => "Home",
             "url" => "",
-            "title" => "Första sidan, börja här.",
+            "title" => "Home",
         ],
         [
-            "text" => "Om",
+            "text" => "About",
             "url" => "om",
-            "title" => "Om denna webbplats.",
+            "title" => "About",
         ],
         [
             "text" => "Posts",
             "url" => "post",
-            "title" => "Posts.",
+            "title" => "Posts",
         ],
         [
             "text" => "Tags",
             "url" => "tags",
-            "title" => "Tags.",
+            "title" => "Tags",
         ],
     ],
 ];
@@ -41,24 +41,24 @@ if ($di->get("session")->get("user")) {
     array_push($navbar["items"], array(
         "text" => "Profile",
         "url" => "user/profile/$id",
-        "title" => "User profile."
+        "title" => "Profile."
     ));
     array_push($navbar["items"], array(
         "text" => "Logout",
         "url" => "user/logout",
-        "title" => "User Logout."
+        "title" => "Logout"
     ));
 } else {
     array_push($navbar["items"], array(
         "text" => "Login",
         "url" => "user/login",
-        "title" => "User Login."
+        "title" => "Login"
     ));
 
     array_push($navbar["items"], array(
         "text" => "Register",
         "url" => "user/create",
-        "title" => "Register new user"
+        "title" => "Register"
     ));
 }
 

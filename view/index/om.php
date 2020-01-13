@@ -9,7 +9,7 @@ namespace Anax\View;
 
 <h1>About</h1>
 
-<p>This website is a project for the course Webbaserade ramverk och designmönster on Blekinge Tekniska Högskola (BTH). This site is made in PHP with the framework Canax.</p>
+<p>This website is a project for the course Webbaserade ramverk och designmönster at Blekinge Tekniska Högskola (BTH). This site is made in PHP with the framework Canax.</p>
 
 <h2>Github</h2>
 
