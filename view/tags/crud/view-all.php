@@ -21,7 +21,7 @@ $urlToCreate = url("tags/create");
 ?><h1>View all tags</h1>
 
 <p>
-    <a href="<?= $urlToCreate ?>">Create new tag</a>
+    <a class="btn" href="<?= $urlToCreate ?>">Create new tag</a>
     <!-- <a href="<?= $urlToDelete ?>">Delete</a> -->
 </p>
 

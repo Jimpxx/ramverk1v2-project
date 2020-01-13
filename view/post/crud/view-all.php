@@ -22,7 +22,7 @@ $urlToDelete = url("post/delete");
 
 <?php if ($this->di->get("session")->get("user")) : ?>
 <p>
-    <a href="<?= $urlToCreate ?>">Create new post</a> 
+    <a class="btn" href="<?= $urlToCreate ?>">Create new post</a> 
     <!-- |  -->
     <!-- <a href="<?= $urlToDelete ?>">Delete</a> -->
 </p>
@@ -45,11 +45,17 @@ endif; ?>
 
 <div class="post">
     <h3><?= $post->title ?></h3>
-    <p><?= $filter->parse($post->text, ["markdown"])->text ?></p>
-    <p><a href="<?= url("user/profile/{$post->user_id}") ?>"><?= $post->username ?></a></p>
-    <img src="<?= $grav_url ?>" alt="">
-    <p>Created: <?= $post->pCreated ?></p>
-    <p><a href="<?= url("post/view/{$post->postId}"); ?>">View post</a></p>
+    <div class="post-body">
+        <div class="post-profile">
+            <img src="<?= $grav_url ?>" alt="">
+            <p><a href="<?= url("user/profile/{$post->user_id}") ?>"><?= $post->username ?></a></p>
+        </div>
+        <div class="post-text">
+            <p><?= $filter->parse($post->text, ["markdown"])->text ?></p>
+        </div>
+    </div>
+    <!-- <p>Created: <?= $post->pCreated ?></p> -->
+    <p><a class="btn" href="<?= url("post/view/{$post->postId}"); ?>">View post</a> (Created: <?= $post->pCreated ?>)</p>
 
 </div>
 <?php endforeach; ?>

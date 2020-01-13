@@ -17,10 +17,10 @@ $urlToSinglePost = url("post/view/{$comment->post_id}");
 
 
 
-?><h1>Update an item</h1>
+?><h1>Update a comment</h1>
 
 <?= $form ?>
 
 <p>
-    <a href="<?= $urlToSinglePost ?>">To the post</a>
+    <a class="btn" href="<?= $urlToSinglePost ?>">To the post</a>
 </p>

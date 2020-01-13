@@ -128,6 +128,35 @@ class ActiveRecordExtension extends ActiveRecordModel
      *
      * @return array of object of this class
      */
+    public function findAllWhereJoinGroupBy($where, $value, $table, $condition, $group)
+    {
+        $this->checkDb();
+        $params = is_array($value) ? $value : [$value];
+        return $this->db->connect()
+                        ->select()
+                        ->from($this->tableName)
+                        ->where($where)
+                        ->join($table, $condition)
+                        ->groupBy($group)
+                        ->execute($params)
+                        ->fetchAllClass(get_class($this));
+    }
+
+
+        /**
+     * Find and return all matching the search criteria.
+     *
+     * The search criteria `$where` of can be set up like this:
+     *  `id = ?`
+     *  `id IN [?, ?]`
+     *
+     * The `$value` can be a single value or an array of values.
+     *
+     * @param string $where to use in where statement.
+     * @param mixed  $value to use in where statement.
+     *
+     * @return array of object of this class
+     */
     public function findAllWhereJoinJoin($where, $value, $table, $condition, $table2, $condition2)
     {
         $this->checkDb();

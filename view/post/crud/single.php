@@ -19,32 +19,38 @@ $urlToCreateComment = url("comment/create/$post->postId");
 
 // Gravatar Image
 $email = $author->email;
-$size = 40;
+$size = 80;
 $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "&s=" . $size;
 
 
 ?>
 
-<a href="<?= $urlToPosts ?>">Back</a>
+<a class="btn" href="<?= $urlToPosts ?>">Back</a>
 
-<?php if ($this->di->get("session")->get("user")["id"] == $author->userId) : ?>
-<p>
-<a href="<?= url("post/update/$post->postId") ?>">Edit post</a>
-<a href="<?= url("post/delete/$post->postId") ?>">Delete post</a>
-</p>
-<?php endif; ?>
 
-<h1><?= $post->title ?></h1>
-
-<p><?= $filter->parse($post->text, ["markdown"])->text ?></p>
-<p>Creator: <p><a href="<?= url("user/profile/{$author->userId}") ?>"><?= $author->username ?></a></p></p>
-<img src="<?= $grav_url ?>" alt="Gravatar Image">
-
-<?php if ($this->di->get("session")->get("user")) : ?>
-<p>
-<a href="<?= $urlToCreateComment ?>">Reply</a>
-</p>
-<?php endif; ?>
+<div class="post">
+    
+    <h1><?= $post->title ?></h1>
+    <div class="post-body">
+        <div class="post-profile">
+            <img src="<?= $grav_url ?>" alt="Gravatar Image">
+            <p><a href="<?= url("user/profile/{$author->userId}") ?>"><?= $author->username ?></a></p>
+        </div>
+        <div class="post-text">
+            <p><?= $filter->parse($post->text, ["markdown"])->text ?></p>
+        </div>
+    </div>
+    <p>Created: <?= $post->pCreated ?></p>
+    <?php if ($this->di->get("session")->get("user")) : ?>
+        <p>
+            <a class="btn" href="<?= $urlToCreateComment ?>">Reply</a>
+            <?php if ($this->di->get("session")->get("user")["id"] == $author->userId) : ?>
+            <a class="btn" href="<?= url("post/update/$post->postId") ?>">Edit post</a>
+            <a class="btn" href="<?= url("post/delete/$post->postId") ?>">Delete post</a>
+            <?php endif; ?>
+        </p>
+        <?php endif; ?>
+</div>
 
 <!-- 
 <h2>Comments</h2> -->

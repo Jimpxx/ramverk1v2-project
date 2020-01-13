@@ -19,5 +19,5 @@ $urlToView = url("comment");
 <?= $form ?>
 
 <p>
-    <a href="<?= $urlToView ?>">View all</a>
+    <a class="btn" href="<?= $urlToView ?>">View all</a>
 </p>

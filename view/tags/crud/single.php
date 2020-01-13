@@ -23,7 +23,7 @@ $urlToCreate = url("tags/create");
 
 <?php if ($this->di->get("session")->get("user")["id"]) : ?>
     <p>
-    <a href="<?= url("tags/update/{$tagId}"); ?>">Edit tag</a>
+    <a class="btn" href="<?= url("tags/update/{$tagId}"); ?>">Edit tag</a>
     </p>
 <?php endif; ?>
 
@@ -42,7 +42,7 @@ endif;
 
 
 
-<h2>The following posts are tagged with <strong><?= $tags[0]->tag ?></strong></h2>
+<p>The following posts are tagged with <strong><?= $tags[0]->tag ?></strong></p>
 
 <?php foreach ($tags as $tag) : ?>
     <p><a href="<?= url("post/view/{$tag->post_id}") ?>"><?= $tag->title ?></a></p>

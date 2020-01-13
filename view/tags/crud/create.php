@@ -17,10 +17,10 @@ $urlToViewItems = url("tags");
 
 
 
-?><h1>Create a item</h1>
+?><h1>Create a tag</h1>
 
 <?= $form ?>
 
 <p>
-    <a href="<?= $urlToViewItems ?>">View all</a>
+    <a class="btn" href="<?= $urlToViewItems ?>">View all</a>
 </p>

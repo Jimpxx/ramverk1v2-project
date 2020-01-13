@@ -4,10 +4,18 @@ namespace Anax\View;
 
 ?>
 
-<h2>Username: <?= $user->username ?></h2>
-<p>Email: <?= $user->email ?></p>
-<p>Joined: <?= $user->uCreated ?></p>
-<img src="<?= $img ?>" alt="Gravatar image">
+<div class="profile-card">
+    <div class="profile-title-row">
+        <div class="profile-title-img">
+            <img src="<?= $img ?>" alt="Gravatar image">
+        </div>
+        <div class="profile-title-text">
+            <h2>Username: <?= $user->username ?></h2>
+        </div>
+    </div>
+    <p>Email: <?= $user->email ?></p>
+    <p>Joined: <?= $user->uCreated ?></p>
+</div>
 
 
 <h2>Posts created</h2>

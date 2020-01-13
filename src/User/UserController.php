@@ -216,11 +216,12 @@ class UserController implements ContainerInjectableInterface
         //     "User.userId = Comment.user_id"
         // );
 
-        $commentedPosts = $comment->findAllWhereJoin(
+        $commentedPosts = $comment->findAllWhereJoinGroupBy(
             "Comment.user_id = ?",
             $id,
             "Post",
-            "Post.postId = Comment.post_id"
+            "Post.postId = Comment.post_id",
+            "Post.postId"
         );
 
         // var_dump($commentedPosts);

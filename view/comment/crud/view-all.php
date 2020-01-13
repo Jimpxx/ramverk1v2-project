@@ -35,27 +35,31 @@ endif;
 ?>
 
 <?php foreach ($comments as $comment) : ?>
-<div class="comment" style="padding-left:<?= $comment->padding ?>rem">
+<div class="comment" style="margin-left:<?= $comment->padding ?>rem">
     <?php
         // Gravatar Image
         $email = $comment->email;
         $size = 40;
         $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "&s=" . $size;
     ?>
-    <p><?= $filter->parse($comment->text, ["markdown"])->text ?></p>
-    <p><a href="<?= url("user/profile/{$comment->user_id}") ?>"><?= $comment->username ?></a></p>
-    <p><?= $comment->cCreated ?></p>
-    <img src="<?= $grav_url ?>" alt="Gravatar Image">
-    <?php if ($comment->userId == $this->di->get("session")->get("user")["id"]) : ?>
-        <p>
-        <a href="<?= url("comment/update/{$comment->commentId}"); ?>">Edit comment</a>
-        </p>
-    <?php endif; ?>
-    <?php if ($this->di->get("session")->get("user")["id"]) : ?>
-        <p>
-        <a href="<?= url("comment/create/{$comment->post_id}?replyId={$comment->commentId}"); ?>">Reply to comment</a>
-        </p>
-    <?php endif; ?>
+    <div class="comment-body">
+        <div class="comment-profile">
+            <img src="<?= $grav_url ?>" alt="Gravatar Image">
+            <p><a href="<?= url("user/profile/{$comment->user_id}") ?>"><?= $comment->username ?></a></p>
+        </div>
+        <div class="comment-text">
+            <p><?= $filter->parse($comment->text, ["markdown"])->text ?></p>
+        </div>
+    </div>
+        <p>Created: <?= $comment->cCreated ?></p>
+        <?php if ($this->di->get("session")->get("user")["id"]) : ?>
+            <p>
+                <a class="btn" href="<?= url("comment/create/{$comment->post_id}?replyId={$comment->commentId}"); ?>">Reply to comment</a>
+                <?php if ($comment->userId == $this->di->get("session")->get("user")["id"]) : ?>
+                    <a class="btn" href="<?= url("comment/update/{$comment->commentId}"); ?>">Edit comment</a>
+                    <?php endif; ?>
+                </p>
+                <?php endif; ?>
 </div>
 <?php endforeach; ?>
 

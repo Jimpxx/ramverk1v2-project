@@ -6963,10 +6963,68 @@ a.rm-button.rm-clicked .rm-button-face-2 {
   background-image: linear-gradient(to right, #fff, #ccc);
 }
 .post {
-  background-color: red;
+  border: 1px solid #ddd;
+  padding: 0 2rem;
+  margin: 1rem 0;
+}
+.post-body {
+  display: flex;
+}
+.post-profile {
+  text-align: center;
+}
+.post-text {
+  margin-left: 2rem;
 }
 .comment {
-  background-color: pink;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.comment-body {
+  display: flex;
+}
+.comment-profile {
+  text-align: center;
+}
+.comment-text {
+  margin-left: 2rem;
+}
+a.btn {
+  color: #222;
+}
+a:visited.btn {
+  color: #222;
+}
+.btn {
+  background-color: #e7e7e7;
+  color: #222;
+  padding: 0.6rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+}
+.btn:hover {
+  background-color: #eee;
+}
+.profile-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.profile-title-row {
+  display: flex;
+}
+.profile-title-text {
+  margin-left: 1rem;
+}
+.active-users {
+  display: flex;
+}
+.user {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  text-align: center;
+  margin-right: 2rem;
 }
 /**
  * My settings.

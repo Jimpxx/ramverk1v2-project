@@ -17,10 +17,10 @@ $urlToView = url("post");
 
 
 
-?><h1>Update an item</h1>
+?><h1>Update a post</h1>
 
 <?= $form ?>
 
 <p>
-    <a href="<?= $urlToView ?>">View all</a>
+    <a class="btn" href="<?= $urlToView ?>">View all</a>
 </p>
