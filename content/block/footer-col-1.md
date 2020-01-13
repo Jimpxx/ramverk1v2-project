@@ -1,3 +1,3 @@
-#### Footer col 1
+#### Award
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+EoStocks has gotten an award for the best social forum that focus on finance and the stock market.

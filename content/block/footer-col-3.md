@@ -1,3 +1,3 @@
-#### Footer col 3
+#### New users
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+We have recently gotten alot of new users joining the site. Please be nice to them and welcome them to this community.
