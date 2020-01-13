@@ -82,9 +82,9 @@ class UserLoginForm extends FormModel
         $res = $user->verifyPassword($username, $password);
 
         if (!$res) {
-        $this->form->rememberValues();
-        $this->form->addOutput("User or password did not match.");
-        return false;
+            $this->form->rememberValues();
+            $this->form->addOutput("User or password did not match.");
+            return false;
         }
 
 

@@ -31,7 +31,7 @@ $urlToCreate = url("tags/create");
 
 <?php if (!$tags) : ?>
     <p>There are no posts connected to this tag.</p>
-<?php
+    <?php
     return;
 endif;
 ?>

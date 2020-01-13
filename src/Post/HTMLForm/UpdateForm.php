@@ -94,7 +94,6 @@ class UpdateForm extends FormModel
         foreach ($tag->findAllWhereJoinJoin("TagsPost.post_id = ?", $this->postId, "TagsPost", "TagsPost.tag_id = Tags.tagId", "Post", "Post.postId = TagsPost.post_id") as $obj) {
             $checked[$obj->tagId] = "{$obj->tag}";
             // $checked["checked"] = "{$obj->tagId}";
-
         }
 
         return $checked;
@@ -122,9 +121,7 @@ class UpdateForm extends FormModel
         foreach ($tag->findAll() as $obj) {
             $tags[$obj->tagId] = "{$obj->tag}";
             // $tags["checked"] = "{$obj->tagId}";
-
         }
-
         return $tags;
     }
 
@@ -134,7 +131,7 @@ class UpdateForm extends FormModel
      * Get details on item to load form with.
      *
      * @param integer $id get details on item with id.
-     * 
+     *
      * @return Post
      */
     public function getItemDetails($id) : object
@@ -173,7 +170,7 @@ class UpdateForm extends FormModel
             $tagsPost->setDb($this->di->get("dbqb"));
             $tagsPost->deleteWhere("post_id = ?", $this->postId);
             
-            foreach($items as $item){
+            foreach ($items as $item) {
                 $tagsPost = new TagsPost();
                 $tagsPost->setDb($this->di->get("dbqb"));
                 // var_dump($item);

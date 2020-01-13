@@ -15,7 +15,7 @@ use Jiad\User\User;
 use Jiad\Post\Post;
 use Jiad\Comment\Comment;
 use Jiad\Tags\Tags;
-Use Jiad\TagsPost\TagsPost;
+use Jiad\TagsPost\TagsPost;
 
 /**
  * A sample controller to show how a controller class can be implemented.
@@ -67,12 +67,12 @@ class IndexController implements ContainerInjectableInterface
 
         // findAllJoinGroupOrderLimit($select = null, $table, $condition, $group, $order, $limit)
         $topUsers = $user->findAllJoinGroupOrderLimit(
-            "*, count(User.userId) as amount",
             "Post",
             "User.userId = Post.user_id",
             "User.userId",
             "amount DESC",
-            "5"
+            "5",
+            "*, count(User.userId) as amount"
         );
 
         $post = new Post();
@@ -85,14 +85,14 @@ class IndexController implements ContainerInjectableInterface
 
         // findAllJoinJoinGroupOrderLimit($select = null, $table, $condition, $table2, $condition2, $group, $order, $limit)
         $popularTags = $tag->findAllJoinJoinGroupOrderLimit(
-            "*, count(Tags.tagId) as amount",
             "TagsPost",
             "TagsPost.tag_id = Tags.tagId",
             "Post",
             "TagsPost.post_id = Post.postId",
             "Tags.tagId",
             "amount DESC",
-            "5"
+            "5",
+            "*, count(Tags.tagId) as amount"
         );
 
         $page->add("index/home", [

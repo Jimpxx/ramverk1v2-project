@@ -30,18 +30,17 @@ $urlToDelete = url("post/delete");
 
 <?php if (!$posts) : ?>
     <p>There are no posts to show.</p>
-<?php
+    <?php
     return;
 endif; ?>
 
 
 <?php foreach ($posts as $post) : ?>
-
-    <?php 
+    <?php
         // Gravatar Image
         $email = $post->email;
         $size = 40;
-        $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "&s=" . $size;
+        $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "&s=" . $size;
     ?>
 
 <div class="post">

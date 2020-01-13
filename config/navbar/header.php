@@ -49,9 +49,7 @@ if ($di->get("session")->get("user")) {
         "url" => "user/logout",
         "title" => "User Logout."
     ));
-
-}
-else {
+} else {
     array_push($navbar["items"], array(
         "text" => "Login",
         "url" => "user/login",

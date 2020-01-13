@@ -9,7 +9,6 @@ use Anax\TextFilter\TextFilter;
 use Jiad\Tags\Tags;
 use Jiad\TagsPost\TagsPost;
 
-
 /**
  * Form to create an item.
  */
@@ -102,7 +101,7 @@ class CreateForm extends FormModel
             // $tag->save();
 
             
-            foreach($items as $item){
+            foreach ($items as $item) {
                 $tagsPost = new TagsPost();
                 $tagsPost->setDb($this->di->get("dbqb"));
                 // var_dump($item);

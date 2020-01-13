@@ -27,7 +27,7 @@ $urlToCreate = url("tags/create");
 
 <?php if (!$tags) : ?>
     <p>There are no items to show.</p>
-<?php
+    <?php
     return;
 endif;
 ?>

@@ -3,6 +3,7 @@
 namespace Jiad\Models;
 
 use Anax\DatabaseActiveRecord\ActiveRecordModel;
+
 /**
  * An implementation of the Active Record pattern to be used as
  * base class for database driven models.
@@ -49,7 +50,7 @@ class ActiveRecordExtension extends ActiveRecordModel
      *
      * @return array of object of this class
      */
-    public function findAllJoinGroupOrderLimit($select = null, $table, $condition, $group, $order, $limit)
+    public function findAllJoinGroupOrderLimit($table, $condition, $group, $order, $limit, $select = null)
     {
         $this->checkDb();
         return $this->db->connect()
@@ -69,7 +70,7 @@ class ActiveRecordExtension extends ActiveRecordModel
      *
      * @return array of object of this class
      */
-    public function findAllJoinJoinGroupOrderLimit($select = null, $table, $condition, $table2, $condition2, $group, $order, $limit)
+    public function findAllJoinJoinGroupOrderLimit($table, $condition, $table2, $condition2, $group, $order, $limit, $select = null)
     {
         $this->checkDb();
         return $this->db->connect()

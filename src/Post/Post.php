@@ -5,7 +5,6 @@ namespace Jiad\Post;
 // use Anax\DatabaseActiveRecord\ActiveRecordModel;
 use Jiad\Models\ActiveRecordExtension;
 
-
 /**
  * A database driven model using the Active Record design pattern.
  */

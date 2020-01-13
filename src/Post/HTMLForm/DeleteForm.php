@@ -84,7 +84,7 @@ class DeleteForm extends FormModel
      * Get details on item to load form with.
      *
      * @param integer $id get details on item with id.
-     * 
+     *
      * @return Post
      */
     public function getItemDetails($id) : object

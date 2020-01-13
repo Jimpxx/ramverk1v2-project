@@ -29,18 +29,18 @@ $urlToDelete = url("comment/delete");
 
 <?php if (!$comments) : ?>
     <p>There are no comments for this post.</p>
-<?php
+    <?php
     return;
 endif;
 ?>
 
 <?php foreach ($comments as $comment) : ?>
 <div class="comment" style="padding-left:<?= $comment->padding ?>rem">
-    <?php 
+    <?php
         // Gravatar Image
         $email = $comment->email;
         $size = 40;
-        $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "&s=" . $size;
+        $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "&s=" . $size;
     ?>
     <p><?= $filter->parse($comment->text, ["markdown"])->text ?></p>
     <p><a href="<?= url("user/profile/{$comment->user_id}") ?>"><?= $comment->username ?></a></p>

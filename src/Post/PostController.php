@@ -198,7 +198,7 @@ class PostController implements ContainerInjectableInterface
         ]);
 
         $comments = $comment->findAllWhereJoin(
-            "post_id = ?", 
+            "post_id = ?",
             $id,
             "User",
             "Comment.user_Id = User.userId"

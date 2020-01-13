@@ -4,10 +4,8 @@ namespace Jiad\Tags\HTMLForm;
 
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
-
 use Jiad\Post\Post;
 use Jiad\Tags\Tags;
-
 
 /**
  * Form to update an item.
@@ -62,7 +60,7 @@ class UpdateForm extends FormModel
      * Get details on item to load form with.
      *
      * @param integer $id get details on item with id.
-     * 
+     *
      * @return Tags
      */
     public function getItemDetails($id) : object

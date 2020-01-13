@@ -16,32 +16,25 @@ namespace Anax\View;
 <h3>Latest posts</h3>
 
 <?php foreach ($latestPosts as $post) : ?>
-
 <p><a href="<?= url("post/view/{$post->postId}") ?>"><?= $post->title ?></a></p>
-
 <?php endforeach; ?>
 
 <h3>Most active users</h3>
 
 <?php foreach ($topUsers as $user) : ?>
-
-    <?php 
+    <?php
         // Gravatar Image
         $email = $user->email;
         $size = 40;
-        $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "&s=" . $size;
+        $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "&s=" . $size;
     ?>
 
     <img src="<?= $grav_url ?>" alt="">
     <p><?= $user->username ?></p>
     <p><?= $user->amount ?> posts</p>
-
 <?php endforeach; ?>
-
 <h3>Popular tags</h3>
 
 <?php foreach ($popularTags as $tag) : ?>
-
 <p><a href="<?= url("tags/view/{$tag->tagId}") ?>"><?= $tag->tag ?></a> (<?= $tag->amount ?> posts)</p>
-
 <?php endforeach; ?>
