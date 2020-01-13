@@ -6,6 +6,8 @@
 
 This project is build in PHP with the framework [Canax](https://github.com/canax)
 
+The content you see on the website is fiction, do not take it seriously.
+
 ## Instructions for installing your own version
 
 -   Download from Github and unzip it
