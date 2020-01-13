@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/Jimpxx/ramverk1v2-project.svg?branch=master)](https://travis-ci.org/Jimpxx/ramverk1v2-project)
+[![Build Status](https://scrutinizer-ci.com/g/Jimpxx/ramverk1v2-project/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Jimpxx/ramverk1v2-project/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Jimpxx/ramverk1v2-project/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Jimpxx/ramverk1v2-project/?branch=master)
+
 # Project for Ramverk1
 
 This project is build in PHP with the framework [Canax](https://github.com/canax)
