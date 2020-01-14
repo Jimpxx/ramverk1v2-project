@@ -61,3 +61,19 @@ class Comment extends ActiveRecordExtension
         return $sorted;
     }
 }
+
+
+// CREATE TABLE Comment (
+//     "commentId" INTEGER PRIMARY KEY,
+//     "user_id" INTEGER,
+//     "post_id" INTEGER,
+//     "reply_id" INTEGER,
+//     "text" TEXT,
+//     "cCreated" TIMESTAMP,
+//     "cUpdated" DATETIME,
+//     "cDeleted" DATETIME,
+//     "cActive" DATETIME,
+//     FOREIGN KEY("user_id") REFERENCES User("userId"),
+//     FOREIGN KEY("post_id") REFERENCES Post("postId"),
+//     FOREIGN KEY("reply_id") REFERENCES Comment("commentId")
+// );
