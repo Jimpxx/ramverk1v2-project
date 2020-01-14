@@ -1,5 +1,9 @@
 # Revision History
 
+## v1.1.0 (2020-01-14)
+
+-   Done with project.
+
 ## v1.0.4 (2020-01-09)
 
 -   Users, posts and comments are working. Next is tags.
