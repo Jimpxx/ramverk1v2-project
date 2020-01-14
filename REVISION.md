@@ -1,5 +1,9 @@
 # Revision History
 
+## v1.1.1 (2020-01-14)
+
+-   Done with project after fixing one validation error.
+
 ## v1.1.0 (2020-01-14)
 
 -   Done with project.
