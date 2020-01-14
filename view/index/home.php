@@ -2,10 +2,6 @@
 
 namespace Anax\View;
 
-// var_dump($_SESSION);
-// var_dump($topUsers);
-// var_dump($popularTags);
-
 ?>
 
 <h1>Everything on Stocks</h1>
@@ -35,7 +31,6 @@ namespace Anax\View;
     <div class="user">
     <img src="<?= $grav_url ?>" alt="">
     <p><a href="<?= url("user/profile/{$user->userId}") ?>"><?= $user->username ?> (<?= $user->amount ?> posts)</a></p>
-    <!-- <p><?= $user->amount ?> posts</p> -->
     </div>
 <?php endforeach; ?>
 </div>

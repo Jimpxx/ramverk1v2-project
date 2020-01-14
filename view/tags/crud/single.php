@@ -14,9 +14,6 @@ $tags = isset($tags) ? $tags : null;
 
 // Create urls for navigation
 $urlToCreate = url("tags/create");
-// $urlToDelete = url("tags/delete");
-
-// var_dump($tags);
 
 
 ?>
@@ -35,12 +32,6 @@ $urlToCreate = url("tags/create");
     return;
 endif;
 ?>
-
-
-
-
-
-
 
 <p>The following posts are tagged with <strong><?= $tags[0]->tag ?></strong></p>
 

@@ -65,8 +65,6 @@ class PostController implements ContainerInjectableInterface
         $page->add("post/crud/view-all", [
             "posts" => $post->findAllJoin("User", "User.userId = Post.user_id"),
             "filter" => $filter,
-            // "posts" => $post->findAll(),
-            // "users" => $user->findAll(),
         ]);
 
         return $page->render([
@@ -193,8 +191,6 @@ class PostController implements ContainerInjectableInterface
         ]);
 
         $page->add("post/crud/comments", [
-            // "post" => $selectedPost,
-            // "author" => $author,
         ]);
 
         $comments = $comment->findAllWhereJoin(

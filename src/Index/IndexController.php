@@ -60,8 +60,6 @@ class IndexController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
 
-        // $user = $this->di->get("session")->get("user");
-
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
 

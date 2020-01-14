@@ -20,12 +20,6 @@ $urlToDelete = url("comment/delete");
 
 
 ?>
-<!-- <h1>View all items</h1>
-
-<p>
-    <a href="<?= $urlToCreate ?>">Create</a> | 
-    <a href="<?= $urlToDelete ?>">Delete</a>
-</p> -->
 
 <?php if (!$comments) : ?>
     <p>There are no comments for this post.</p>
@@ -57,32 +51,8 @@ endif;
                 <a class="btn" href="<?= url("comment/create/{$comment->post_id}?replyId={$comment->commentId}"); ?>">Reply to comment</a>
                 <?php if ($comment->userId == $this->di->get("session")->get("user")["id"]) : ?>
                     <a class="btn" href="<?= url("comment/update/{$comment->commentId}"); ?>">Edit comment</a>
-                    <?php endif; ?>
-                </p>
                 <?php endif; ?>
+            </p>
+        <?php endif; ?>
 </div>
 <?php endforeach; ?>
-
-
-<!-- <table>
-    <tr>
-        <th>Id</th>
-        <th>Text</th>
-        <th>User_ID</th>
-        <th>Post_ID</th>
-        <th>Comment_ID</th>
-        <th>Created</th>
-    </tr>
-    <?php foreach ($comments as $item) : ?>
-    <tr>
-        <td>
-            <a href="<?= url("comment/update/{$item->id}"); ?>"><?= $item->id ?></a>
-        </td>
-        <td><?= $item->text ?></td>
-        <td><?= $item->user_id ?></td>
-        <td><?= $item->post_id ?></td>
-        <td><?= $item->comment_id ?></td>
-        <td><?= $item->created ?></td>
-    </tr>
-    <?php endforeach; ?>
-</table> -->

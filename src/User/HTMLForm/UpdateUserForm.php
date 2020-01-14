@@ -124,7 +124,6 @@ class UpdateUserForm extends FormModel
             $this->form->addOutput("Your current password did not match.");
             return false;
         }
-        // $user->username  = $this->form->value("username");
         $user->email = $email;
         if ($newPassword !== "") {
             $user->setPassword($newPassword);
@@ -140,7 +139,6 @@ class UpdateUserForm extends FormModel
         ];
         $this->di->get("session")->set("user", $currentUser);
 
-        // $this->form->addOutput("User updated.");
         return true;
     }
 

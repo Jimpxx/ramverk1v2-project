@@ -146,10 +146,6 @@ class TagsController implements ContainerInjectableInterface
         
         $tag = new Tags();
         $tag->setDb($this->di->get("dbqb"));
-        
-        // $post = new Post();
-        // $post->setDb($this->di->get("dbqb"));
-
 
         $page->add("tags/crud/single", [
             "tagId" => $id,
@@ -163,9 +159,6 @@ class TagsController implements ContainerInjectableInterface
                 "TagsPost.post_id = Post.postId"
             ),
         ]);
-
-        // findAllWhereJoinJoin($where, $value, $table, $condition, $table2, $condition2)
-
 
         return $page->render([
             "title" => "Single post",

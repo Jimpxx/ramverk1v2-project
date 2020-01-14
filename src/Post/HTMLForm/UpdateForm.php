@@ -90,10 +90,8 @@ class UpdateForm extends FormModel
         $tagsPost->setDb($this->di->get("dbqb"));
 
         $checked = [];
-        // $checked = ["-1" => "Select an item..."];
         foreach ($tag->findAllWhereJoinJoin("TagsPost.post_id = ?", $this->postId, "TagsPost", "TagsPost.tag_id = Tags.tagId", "Post", "Post.postId = TagsPost.post_id") as $obj) {
             $checked[$obj->tagId] = "{$obj->tag}";
-            // $checked["checked"] = "{$obj->tagId}";
         }
 
         return $checked;
@@ -110,17 +108,9 @@ class UpdateForm extends FormModel
         $tag = new Tags();
         $tag->setDb($this->di->get("dbqb"));
 
-        // $post = new Post();
-        // $post->setDb($this->di->get("dbqb"));
-
-        // $tagsPost = new TagsPost();
-        // $tagsPost->setDb($this->di->get("dbqb"));
-
         $tags = [];
-        // $tags = ["-1" => "Select an item..."];
         foreach ($tag->findAll() as $obj) {
             $tags[$obj->tagId] = "{$obj->tag}";
-            // $tags["checked"] = "{$obj->tagId}";
         }
         return $tags;
     }
@@ -168,17 +158,13 @@ class UpdateForm extends FormModel
             $tag = new Tags();
             $tag->setDb($this->di->get("dbqb"));
             $items = $this->form->value("tags");
-            // $tag->save();
 
-            
             foreach ($items as $item) {
                 $tagsPost = new TagsPost();
                 $tagsPost->setDb($this->di->get("dbqb"));
-                // var_dump($item);
                 
                 $foundTag = $tag->find("tag", $item);
                 if ($foundTag) {
-                    // var_dump($foundTag);
                     $tagsPost->tag_id = $foundTag->tagId;
                     $tagsPost->post_id = $post->postId;
                     $tagsPost->save();

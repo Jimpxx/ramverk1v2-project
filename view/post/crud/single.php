@@ -49,8 +49,5 @@ $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) .
             <a class="btn" href="<?= url("post/delete/$post->postId") ?>">Delete post</a>
             <?php endif; ?>
         </p>
-        <?php endif; ?>
+    <?php endif; ?>
 </div>
-
-<!-- 
-<h2>Comments</h2> -->

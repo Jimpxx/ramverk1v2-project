@@ -28,14 +28,10 @@ class UserLoginForm extends FormModel
             [
                 "user" => [
                     "type"        => "text",
-                    //"description" => "Here you can place a description.",
-                    //"placeholder" => "Here is a placeholder",
                 ],
                         
                 "password" => [
                     "type"        => "password",
-                    //"description" => "Here you can place a description.",
-                    //"placeholder" => "Here is a placeholder",
                 ],
 
                 "submit" => [
@@ -61,22 +57,6 @@ class UserLoginForm extends FormModel
         $username       = $this->form->value("user");
         $password      = $this->form->value("password");
 
-        // Try to login
-        // $db = $this->di->get("dbqb");
-        // $db->connect();
-        // $user = $db->select("password")
-        //            ->from("User")
-        //            ->where("acronym = ?")
-        //            ->execute([$acronym])
-        //            ->fetch();
-        //
-        // // $user is false if user is not found
-        // if (!$user || !password_verify($password, $user->password)) {
-        //    $this->form->rememberValues();
-        //    $this->form->addOutput("User or password did not match.");
-        //    return false;
-        // }
-
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
         $res = $user->verifyPassword($username, $password);
@@ -87,33 +67,14 @@ class UserLoginForm extends FormModel
             return false;
         }
 
-
-        
-        // $this->form->addOutput("User " . $user->username . " logged in.");
-        
-        // var_dump($user);
-        
-        // $loggedInUser = $user->find("acronym", $user->acronym);
-        // var_dump($loggedInUser);
-        // $loggedInUser = $user->getUser($user->acronym);
-        // $loggedInUser = $user->findWhere("acronym = ?", $user->acronym);
-        // $loggedInUser = $user->findAll();
-        
         $currentUser = [
             "id" => $user->userId,
             "username" => $user->username,
             "email" => $user->email,
             "password" => $user->password
         ];
-        
-        // var_dump($currentUser);
 
-
-        // $currentUser = (array) $user;
-
-        // $this->di->get("session")->delete("user");
         $this->di->get("session")->set("user", $currentUser);
-        // $this->di->get("session")->set("user", $loggedInUser);
         return true;
     }
 

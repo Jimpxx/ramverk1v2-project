@@ -23,8 +23,6 @@ $urlToDelete = url("post/delete");
 <?php if ($this->di->get("session")->get("user")) : ?>
 <p>
     <a class="btn" href="<?= $urlToCreate ?>">Create new post</a> 
-    <!-- |  -->
-    <!-- <a href="<?= $urlToDelete ?>">Delete</a> -->
 </p>
 <?php endif; ?>
 
@@ -54,35 +52,7 @@ endif; ?>
             <p><?= $filter->parse($post->text, ["markdown"])->text ?></p>
         </div>
     </div>
-    <!-- <p>Created: <?= $post->pCreated ?></p> -->
     <p><a class="btn" href="<?= url("post/view/{$post->postId}"); ?>">View post</a> (Created: <?= $post->pCreated ?>)</p>
 
 </div>
 <?php endforeach; ?>
-
-
-
-<!-- <table>
-    <tr>
-        <th>Id</th>
-        <th>Username</th>
-        <th>title</th>
-        <th>text</th>
-    </tr>
-    <?php foreach ($posts as $post) : ?>
-    <tr>
-        <td>
-            <a href="<?= url("post/view/{$post->postId}"); ?>"><?= $post->postId ?></a>
-        </td>
-        <td>
-        <?php foreach ($users as $user) : ?>
-            <?php if ($user->userId == $post->user_id) : ?>
-                <?= $user->username ?>
-            <?php endif; ?>
-        <?php endforeach; ?>
-        </td>
-        <td><?= $post->title ?></td>
-        <td><?= $post->text ?></td>
-    </tr>
-    <?php endforeach; ?>
-</table> -->

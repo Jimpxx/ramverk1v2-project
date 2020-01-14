@@ -14,7 +14,6 @@ $tags = isset($tags) ? $tags : null;
 
 // Create urls for navigation
 $urlToCreate = url("tags/create");
-// $urlToDelete = url("tags/delete");
 
 
 
@@ -23,7 +22,6 @@ $urlToCreate = url("tags/create");
 <?php if ($this->di->get("session")->get("user")["id"]) : ?>
     <p>
         <a class="btn" href="<?= $urlToCreate ?>">Create new tag</a>
-        <!-- <a href="<?= $urlToDelete ?>">Delete</a> -->
     </p>
 <?php endif; ?>
 
@@ -42,19 +40,3 @@ endif;
 </li>
 <?php endforeach; ?>
 </ul>
-
-
-<!-- <table>
-    <tr>
-        <th>Id</th>
-        <th>Tag</th>
-    </tr>
-    <?php foreach ($tags as $tag) : ?>
-    <tr>
-        <td>
-            <a href="<?= url("tags/update/{$tag->tagId}"); ?>"><?= $tag->tagId ?></a>
-        </td>
-        <td><?= $tag->tag ?></td>
-    </tr>
-    <?php endforeach; ?>
-</table> -->

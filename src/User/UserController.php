@@ -128,27 +128,15 @@ class UserController implements ContainerInjectableInterface
      */
     public function updateAction(int $id) : object
     {
-        // $user = new User();
-        // $user->setDb($this->di->get("dbqb"));
-        // $user->find("id", $id);
-
-        // $status = "Not logged in";
-
         $sessionUser = $this->di->get("session")->get("user");
 
         if (!$sessionUser["id"] == $id) {
             $this->di->get("response")->redirect("user/login");
         }
 
-        // var_dump($status);
-        
         $page = $this->di->get("page");
         $form = new UpdateUserForm($this->di, $id);
         $form->check();
-
-        // $page->add("book/crud/update", [
-        //     "form" => $form->getHTML(),
-        // ]);
 
         $page->add("anax/v2/article/default", [
             "content" => $form->getHTML(),
@@ -175,14 +163,11 @@ class UserController implements ContainerInjectableInterface
 
         $page = $this->di->get("page");
 
-        // $status = "Not logged in";
-
         $sessionUser = $this->di->get("session")->get("user");
 
         $page->add("user/profileTitle");
 
         if ($sessionUser["id"] == $id) {
-            // $status = "Logged in";
             $page->add("user/loggedInEditUser", [
                 "id" => $id,
             ]);
@@ -193,8 +178,6 @@ class UserController implements ContainerInjectableInterface
         $email = $user->email;
         $size = 40;
         $grav_url = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "&s=" . $size;
-        // $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
-        
 
         $post = new Post();
         $post->setDb($this->di->get("dbqb"));
@@ -209,13 +192,6 @@ class UserController implements ContainerInjectableInterface
         $comment = new Comment();
         $comment->setDb($this->di->get("dbqb"));
 
-        // $comments = $comment->findAllWhereJoin(
-        //     "Comment.user_id = ?",
-        //     $id,
-        //     "User",
-        //     "User.userId = Comment.user_id"
-        // );
-
         $commentedPosts = $comment->findAllWhereJoinGroupBy(
             "Comment.user_id = ?",
             $id,
@@ -224,7 +200,6 @@ class UserController implements ContainerInjectableInterface
             "Post.postId"
         );
 
-        // var_dump($commentedPosts);
         $commentedPosts = array_unique($commentedPosts, SORT_REGULAR);
 
         $page->add("user/profile", [
@@ -252,7 +227,6 @@ class UserController implements ContainerInjectableInterface
     public function logoutAction() : object
     {
         $this->di->get("session")->delete("user");
-        // $this->di->get("session")->delete("test");
         $this->di->get("response")->redirect("index");
     }
 }

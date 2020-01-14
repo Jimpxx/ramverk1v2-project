@@ -66,7 +66,6 @@ class CreateForm extends FormModel
         $tag->setDb($this->di->get("dbqb"));
 
         $tags = [];
-        // $tags = ["-1" => "Select an item..."];
         foreach ($tag->findAll() as $obj) {
             $tags[$obj->tagId] = "{$obj->tag}";
         }
@@ -84,7 +83,6 @@ class CreateForm extends FormModel
      */
     public function callbackSubmit() : bool
     {
-        // $textFilter = new TextFilter();
         $post = new Post();
         $post->setDb($this->di->get("dbqb"));
         $post->user_id  = $this->di->get("session")->get("user")["id"];
@@ -93,30 +91,23 @@ class CreateForm extends FormModel
         $post->pCreated = date("Y-m-d H:i");
         $post->save();
 
-        // var_dump($this->form->value("tags"));
         if ($this->form->value("tags")) {
             $tag = new Tags();
             $tag->setDb($this->di->get("dbqb"));
             $items = $this->form->value("tags");
-            // $tag->save();
 
-            
             foreach ($items as $item) {
                 $tagsPost = new TagsPost();
                 $tagsPost->setDb($this->di->get("dbqb"));
-                // var_dump($item);
                 $foundTag = $tag->find("tag", $item);
                 if ($foundTag) {
-                    // var_dump($foundTag);
                     $tagsPost->tag_id = $foundTag->tagId;
                     $tagsPost->post_id = $post->postId;
                     $tagsPost->save();
                 }
             }
         }
-
         return true;
-        // return false;
     }
 
 

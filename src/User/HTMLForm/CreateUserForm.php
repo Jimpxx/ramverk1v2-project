@@ -76,13 +76,6 @@ class CreateUserForm extends FormModel
             return false;
         }
 
-        // Save to database
-        // $db = $this->di->get("dbqb");
-        // $password = password_hash($password, PASSWORD_DEFAULT);
-        // $db->connect()
-        //    ->insert("User", ["acronym", "password"])
-        //    ->execute([$acronym])
-        //    ->fetch();
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
         $user->username = $username;
